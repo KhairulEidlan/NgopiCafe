@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782152424982",
+    "project_id": "ngopi-4dccb",
+    "storage_bucket": "ngopi-4dccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782152424982:android:dfd2cbf7da218565b11f37",
+        "android_client_info": {
+          "package_name": "com.example.ngopi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782152424982-k0p5asot4550sghknhean9ivskmtdnfj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyliIQz6nEwsFSWxpeCIbhx_ERaXAqzWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782152424982-k0p5asot4550sghknhean9ivskmtdnfj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
