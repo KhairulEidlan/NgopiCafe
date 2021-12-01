@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.403125" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_dashboard.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_login.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_signup.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/static_rv_item.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>
