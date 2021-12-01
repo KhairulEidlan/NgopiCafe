@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.403125" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/drawable/gradient_background.xml" value="0.403125" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.403125" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_dashboard.xml" value="0.38697916666666665" />
