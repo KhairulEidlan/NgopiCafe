@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         ArrayList<StaticRvModel> item = new ArrayList<>();
         item.add(new StaticRvModel(R.mipmap.coffee_foreground,"Coffee"));
-        item.add(new StaticRvModel(R.mipmap.coffee_foreground,"Ice Coffee"));
+        item.add(new StaticRvModel(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
         item.add(new StaticRvModel(R.mipmap.boba_foreground,"Boba Tea"));
         item.add(new StaticRvModel(R.mipmap.ice_cream_foreground,"Ice Cream"));
         item.add(new StaticRvModel(R.mipmap.sandwich_foreground,"Sandwich"));
