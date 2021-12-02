@@ -20,12 +20,12 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         ArrayList<StaticRvModel> item = new ArrayList<>();
-        item.add(new StaticRvModel(R.drawable.coffee,"Coffee"));
-        item.add(new StaticRvModel(R.drawable.ice_coffee,"Ice Coffee"));
-        item.add(new StaticRvModel(R.drawable.boba,"Boba Tea"));
-        item.add(new StaticRvModel(R.drawable.ice_cream,"Ice Cream"));
-        item.add(new StaticRvModel(R.drawable.sandwish,"Sandwish"));
-        item.add(new StaticRvModel(R.drawable.can,"Soda Can"));
+        item.add(new StaticRvModel(R.mipmap.coffee_foreground,"Coffee"));
+        item.add(new StaticRvModel(R.mipmap.coffee_foreground,"Ice Coffee"));
+        item.add(new StaticRvModel(R.mipmap.boba_foreground,"Boba Tea"));
+        item.add(new StaticRvModel(R.mipmap.ice_cream_foreground,"Ice Cream"));
+        item.add(new StaticRvModel(R.mipmap.sandwich_foreground,"Sandwich"));
+        item.add(new StaticRvModel(R.mipmap.can_foreground,"Soda Can"));
 
         recyclerView = findViewById(R.id.rv_1);
         staticRvAdapter = new StaticRvAdapter(item);

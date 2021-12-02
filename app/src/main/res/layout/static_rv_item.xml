@@ -14,7 +14,7 @@
         android:id="@+id/image"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/coffee"
+        android:src="@mipmap/coffee_foreground"
         android:layout_gravity="center"/>
 
     <TextView
