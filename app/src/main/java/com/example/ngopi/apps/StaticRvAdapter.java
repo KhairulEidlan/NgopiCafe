@@ -1,6 +1,7 @@
 package com.example.ngopi.apps;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,31 @@ public class StaticRvAdapter  extends RecyclerView.Adapter<StaticRvAdapter.Stati
             public void onClick(View v) {
                 row_index = position;
                 notifyDataSetChanged();
+
+                if (holder.getLayoutPosition()==0){
+                    Intent intent = new Intent(v.getContext() ,Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
+                else if (holder.getLayoutPosition()==1){
+                    Intent intent = new Intent(v.getContext() , Ice_Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
+                else if (holder.getLayoutPosition()==2){
+                    Intent intent = new Intent(v.getContext() , Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
+                else if (holder.getLayoutPosition()==3){
+                    Intent intent = new Intent(v.getContext() , Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
+                else if (holder.getLayoutPosition()==4){
+                    Intent intent = new Intent(v.getContext() , Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
+                else if (holder.getLayoutPosition()==5){
+                    Intent intent = new Intent(v.getContext() , Coffee_Item.class);
+                    v.getContext().startActivity(intent);
+                }
             }
         });
         if (row_index == position){
