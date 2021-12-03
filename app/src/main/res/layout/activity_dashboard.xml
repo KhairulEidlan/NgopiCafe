@@ -58,7 +58,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:background="@drawable/search_back"
-                    android:drawableStart="@drawable/search"
+                    android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Search"
@@ -93,28 +93,43 @@
         </LinearLayout>
 
     </ScrollView>
-
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+        android:id="@+id/bot_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="@drawable/round_corner"
+        android:elevation="15dp"
+        android:padding="12dp"
+        app:bnc_mode="spread"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleVerticalOffset="6dp">
+            app:bt_colorActive="@color/black"
+            app:bt_colorInactive="@color/black"
+            app:bt_icon="@drawable/ic_home"
+            app:bt_active="true"
+            app:bt_title="Home"/>
 
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/black"
+            app:bt_colorInactive="@color/black"
+            app:bt_icon="@drawable/ic_cart"
+            app:bt_title="Cart"/>
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_colorActive="@color/black"
+            app:bt_colorInactive="@color/black"
+            app:bt_icon="@drawable/ic_profile"
+            app:bt_title="Profile"/>
 
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
