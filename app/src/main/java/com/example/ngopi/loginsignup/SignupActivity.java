@@ -37,7 +37,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //hide status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        overridePendingTransition(R.transition.fadein,R.transition.fadeout);
         setContentView(R.layout.activity_signup);
 
         //button
@@ -52,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
         password_reg = findViewById(R.id.password_reg);
 
         layout1 = findViewById(R.id.layout1);
-        layout1.animate().translationY(-700).setDuration(1000);
+        layout1.animate().translationY(-750).setDuration(1000);
 
         sign.setOnClickListener(view -> {
             if (validateFullname() && validateUsername() && validateEmail() && validatePhoneNum() && validatePassword() == true)
@@ -65,9 +64,9 @@ public class SignupActivity extends AppCompatActivity {
 
         //go to login page
         sign_in.setOnClickListener(view -> {
-            layout1.animate().translationY(2100).setDuration(1000);
             Intent intent = new Intent(SignupActivity.this ,LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.transition.fadein,R.transition.fadeout);
             finish();
         });
     }

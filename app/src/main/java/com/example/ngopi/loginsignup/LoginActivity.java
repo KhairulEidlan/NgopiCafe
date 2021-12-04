@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         //hide status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        overridePendingTransition(R.transition.fadein,R.transition.fadeout);
         setContentView(R.layout.activity_login);
 
         //button
@@ -53,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         layout1.animate().translationY(-450).setDuration(1000);
     }
     public void register(View v){
-        layout1.animate().translationY(2100).setDuration(1000);
         Intent intent = new Intent(LoginActivity.this ,SignupActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.transition.fadein,R.transition.fadeout);
         finish();
     }
 
