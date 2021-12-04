@@ -33,6 +33,7 @@ public class CartActivity extends AppCompatActivity {
                     case 0:
                         Intent intent = new Intent(CartActivity.this ,DashboardActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
                     case 1:
                         Intent intent1 = new Intent(CartActivity.this ,CartActivity.class);
@@ -41,6 +42,7 @@ public class CartActivity extends AppCompatActivity {
                     case 2:
                         Intent intent2 = new Intent(CartActivity.this ,ProfileActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         break;
                 }
             }

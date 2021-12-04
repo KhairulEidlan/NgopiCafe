@@ -32,10 +32,12 @@ public class ProfileActivity extends AppCompatActivity {
                     case 0:
                         Intent intent = new Intent(ProfileActivity.this ,DashboardActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
                     case 1:
                         Intent intent1 = new Intent(ProfileActivity.this ,CartActivity.class);
                         startActivity(intent1);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
                     case 2:
                         Intent intent2 = new Intent(ProfileActivity.this ,ProfileActivity.class);

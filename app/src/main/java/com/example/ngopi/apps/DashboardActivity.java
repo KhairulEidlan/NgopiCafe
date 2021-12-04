@@ -66,10 +66,12 @@ public class DashboardActivity extends AppCompatActivity {
                     case 1:
                         Intent intent1 = new Intent(DashboardActivity.this ,CartActivity.class);
                         startActivity(intent1);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         break;
                     case 2:
                         Intent intent2 = new Intent(DashboardActivity.this ,ProfileActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         break;
                 }
             }
