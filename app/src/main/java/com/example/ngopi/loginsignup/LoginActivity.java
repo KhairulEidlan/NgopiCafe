@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.ngopi.R;
 import com.example.ngopi.admin.AdminDashboardActivity;
-import com.example.ngopi.apps.DashboardActivity;
+import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.object.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if (document.get("usertype").equals("User")){
                                     Toast.makeText(LoginActivity.this, "Welcome Back " + user.getUsername(),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this , DashboardActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this , AppMainActivity.class);
                                     startActivity(intent);
                                     break;
                                 }

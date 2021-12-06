@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.ngopi.R;
-import com.example.ngopi.apps.DashboardActivity;
+import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.object.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -172,7 +172,7 @@ public class SignupActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
                                             Toast.makeText(SignupActivity.this, "Register Successfull",Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(SignupActivity.this , DashboardActivity.class);
+                                            Intent intent = new Intent(SignupActivity.this , AppMainActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }

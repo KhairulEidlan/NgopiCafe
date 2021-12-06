@@ -1,10 +1,10 @@
 package com.example.ngopi.apps;
 
-public class StaticRvModel {
+public class RvCatModel {
     private int image;
     private String text;
 
-    public StaticRvModel(int image, String text) {
+    public RvCatModel(int image, String text) {
         this.image = image;
         this.text = text;
     }

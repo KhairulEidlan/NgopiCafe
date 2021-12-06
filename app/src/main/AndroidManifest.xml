@@ -11,22 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NgopiCafe">
         <activity
+            android:name=".apps.AppMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".apps.Ice_Coffee_Item"
             android:exported="true" />
         <activity
             android:name=".apps.Coffee_Item"
             android:exported="true" />
         <activity
-            android:name=".apps.ProfileActivity"
-            android:exported="true" />
-        <activity
-            android:name=".apps.CartActivity"
-            android:exported="true" />
-        <activity
             android:name=".admin.AdminDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".apps.DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".loginsignup.SignupActivity"
