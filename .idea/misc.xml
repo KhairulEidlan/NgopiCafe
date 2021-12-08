@@ -5,12 +5,16 @@
       <map>
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_main.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_cart.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_category.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_login.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_profile.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_cart.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_home.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_profile.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_cart.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_cat.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_menu.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable-v24/boba_background.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable-v24/can_background.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable-v24/coffee_background.xml" value="0.1537037037037037" />

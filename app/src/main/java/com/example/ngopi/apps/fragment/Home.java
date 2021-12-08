@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ngopi.R;
-import com.example.ngopi.apps.RvCatAdapter;
-import com.example.ngopi.apps.RvCatModel;
+import com.example.ngopi.apps.rv.RvCatAdapter;
+import com.example.ngopi.apps.rv.RvCatModel;
 
 import java.util.ArrayList;
 

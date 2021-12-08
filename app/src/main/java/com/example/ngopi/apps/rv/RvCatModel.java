@@ -1,4 +1,4 @@
-package com.example.ngopi.apps;
+package com.example.ngopi.apps.rv;
 
 public class RvCatModel {
     private int image;

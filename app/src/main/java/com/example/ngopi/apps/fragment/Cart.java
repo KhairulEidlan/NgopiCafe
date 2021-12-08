@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.ngopi.R;
-import com.example.ngopi.apps.RvCatAdapter;
-import com.example.ngopi.apps.RvCatModel;
+import com.example.ngopi.apps.rv.RvCartAdapter;
+import com.example.ngopi.apps.rv.RvCartModel;
 
 import java.util.ArrayList;
 
@@ -30,14 +30,14 @@ public class Cart extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
         // Item
-        ArrayList<RvCatModel> item = new ArrayList<>();
-        item.add(new RvCatModel(R.mipmap.coffee_foreground,"Coffee"));
-        item.add(new RvCatModel(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
-        item.add(new RvCatModel(R.mipmap.boba_foreground,"Smoothies"));
-        item.add(new RvCatModel(R.mipmap.ice_cream_foreground,"Dessert"));
-        item.add(new RvCatModel(R.mipmap.can_foreground,"Beverage"));
+        ArrayList<RvCartModel> item = new ArrayList<>();
+        item.add(new RvCartModel(R.mipmap.coffee_foreground,"Coffee","Tall", 23.50));
+        item.add(new RvCartModel(R.mipmap.ice_coffee_foreground,"Ice Coffee","Tall",13.10));
+        item.add(new RvCartModel(R.mipmap.boba_foreground,"Smoothies","Tall",20.30));
+        item.add(new RvCartModel(R.mipmap.ice_cream_foreground,"Dessert","Tall",33.60));
+        item.add(new RvCartModel(R.mipmap.can_foreground,"Beverage","Tall",18.90));
 
-        recyclerView.setAdapter(new RvCatAdapter(getContext(),item));
+        recyclerView.setAdapter(new RvCartAdapter(getContext(),item));
 
         return view;
     }

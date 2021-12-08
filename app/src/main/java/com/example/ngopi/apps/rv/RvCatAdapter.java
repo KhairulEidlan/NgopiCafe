@@ -1,4 +1,4 @@
-package com.example.ngopi.apps;
+package com.example.ngopi.apps.rv;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,16 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ngopi.R;
+import com.example.ngopi.apps.AppCategoryActivity;
 
 import java.util.ArrayList;
 
 public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder> {
-    private Context context;
-    private ArrayList<RvCatModel> category;
+    private final ArrayList<RvCatModel> category;
     int row_index = -1;
 
     public RvCatAdapter(Context context,ArrayList<RvCatModel> category) {
-        this.context = context;
         this.category = category;
     }
 
@@ -40,33 +39,12 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
         holder.imageView.setImageResource(currentCat.getImage());
         holder.textView.setText(currentCat.getText());
 
-        holder.linearLayout.setOnClickListener(view -> {
+        holder.linearLayout.setOnClickListener(v -> {
             row_index = position;
 
-            if (holder.getLayoutPosition()==0){
-                Intent intent = new Intent(view.getContext() ,Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
-            else if (holder.getLayoutPosition()==1){
-                Intent intent = new Intent(view.getContext() , Ice_Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
-            else if (holder.getLayoutPosition()==2){
-                Intent intent = new Intent(view.getContext() , Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
-            else if (holder.getLayoutPosition()==3){
-                Intent intent = new Intent(view.getContext() , Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
-            else if (holder.getLayoutPosition()==4){
-                Intent intent = new Intent(view.getContext() , Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
-            else if (holder.getLayoutPosition()==5){
-                Intent intent = new Intent(view.getContext() , Coffee_Item.class);
-                view.getContext().startActivity(intent);
-            }
+            Intent intent = new Intent(v.getContext() , AppCategoryActivity.class);
+            intent.putExtra("ids",holder.getLayoutPosition());
+            v.getContext().startActivity(intent);
         });
         if (row_index == position){
             holder.linearLayout.setBackgroundResource(R.drawable.static_rv_bg);
