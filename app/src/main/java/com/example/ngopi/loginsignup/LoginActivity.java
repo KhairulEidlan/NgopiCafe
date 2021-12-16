@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +19,8 @@ import com.example.ngopi.object.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -28,13 +31,14 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout layout1;
 
     User user= new User();
-
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mAuth = FirebaseAuth.getInstance();
 
         //hide status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -75,13 +79,24 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if (document.get("usertype").equals("Admin")){
+                                    mAuth.signInAnonymously();
+                                    SharedPreferences.Editor editor = getSharedPreferences("UserPreferences", MODE_PRIVATE).edit();
+                                    editor.putString("username", user.getUsername());
+                                    editor.putString("usertype", "Admin");
+                                    editor.apply();
                                     Toast.makeText(LoginActivity.this, "Welcome Back " + user.getUsername(),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this , AdminDashboardActivity.class);
                                     startActivity(intent);
                                 }
                                 else if (document.get("usertype").equals("User")){
+                                    mAuth.signInAnonymously();
+                                    SharedPreferences.Editor editor = getSharedPreferences("UserPreferences", MODE_PRIVATE).edit();
+                                    editor.putString("username", user.getUsername());
+                                    editor.putString("usertype", "User");
+                                    editor.apply();
                                     Toast.makeText(LoginActivity.this, "Welcome Back " + user.getUsername(),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this , AppMainActivity.class);
+                                    intent.putExtra("username",user.getUsername().toString());
                                     startActivity(intent);
                                 }
                             }

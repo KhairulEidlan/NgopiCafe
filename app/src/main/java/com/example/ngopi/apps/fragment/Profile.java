@@ -1,6 +1,7 @@
 package com.example.ngopi.apps.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import com.example.ngopi.loginsignup.LoginActivity;
 import com.example.ngopi.object.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -51,7 +54,7 @@ public class Profile extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), user.getUsername(),Toast.LENGTH_SHORT).show();
+                Logout();
             }
         });
 
@@ -75,6 +78,13 @@ public class Profile extends Fragment {
                         }
                     }
                 });
+    }
+    public void Logout(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseAuth.getInstance().signOut();
+        user.delete();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
 

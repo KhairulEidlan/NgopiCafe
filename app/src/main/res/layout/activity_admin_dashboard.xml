@@ -5,4 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".admin.AdminDashboardActivity">
 
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:padding="10dp"
+        android:text="Edit"
+        android:layout_gravity="end"
+        android:textSize="18dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

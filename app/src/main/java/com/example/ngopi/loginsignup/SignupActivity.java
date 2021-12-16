@@ -167,22 +167,35 @@ public class SignupActivity extends AppCompatActivity {
                                 return;
                             }
                             db.collection("Users")
-                                    .add(user)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    .document(user.getUsername())
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
+                                        public void onSuccess(Void unused) {
                                             Toast.makeText(SignupActivity.this, "Register Successfull",Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SignupActivity.this , AppMainActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(SignupActivity.this, "Register Unsuccessfull",Toast.LENGTH_SHORT).show();
-                                        }
                                     });
+
+//                            db.collection("Users")
+//                                    .add(user)
+//                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                        @Override
+//                                        public void onSuccess(DocumentReference documentReference) {
+//                                            Toast.makeText(SignupActivity.this, "Register Successfull",Toast.LENGTH_SHORT).show();
+//                                            Intent intent = new Intent(SignupActivity.this , AppMainActivity.class);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                    })
+//                                    .addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            Toast.makeText(SignupActivity.this, "Register Unsuccessfull",Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
 
                         }
                     }
