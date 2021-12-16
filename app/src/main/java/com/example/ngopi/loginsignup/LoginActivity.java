@@ -78,13 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Welcome Back " + user.getUsername(),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this , AdminDashboardActivity.class);
                                     startActivity(intent);
-                                    break;
                                 }
                                 else if (document.get("usertype").equals("User")){
                                     Toast.makeText(LoginActivity.this, "Welcome Back " + user.getUsername(),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this , AppMainActivity.class);
                                     startActivity(intent);
-                                    break;
                                 }
                             }
                             if (task.getResult().isEmpty()){
