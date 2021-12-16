@@ -43,6 +43,17 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
             row_index = position;
 
             Intent intent = new Intent(v.getContext() , AppCategoryActivity.class);
+            if(holder.getLayoutPosition() == 0){
+                intent.putExtra("img",R.drawable.bg_coffee);
+            } else if(holder.getLayoutPosition() == 1){
+                intent.putExtra("img",R.drawable.bg_ice_coffee);
+            } else if(holder.getLayoutPosition() == 2){
+                intent.putExtra("img",R.drawable.bg_coffee);
+            } else if(holder.getLayoutPosition() == 3){
+                intent.putExtra("img",R.drawable.bg_dessert);
+            } else if(holder.getLayoutPosition() == 4){
+                intent.putExtra("img",R.drawable.bg_drinks);
+            }
             intent.putExtra("ids",holder.getLayoutPosition());
             v.getContext().startActivity(intent);
         });

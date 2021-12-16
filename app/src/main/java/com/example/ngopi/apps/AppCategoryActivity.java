@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ngopi.R;
@@ -17,9 +18,10 @@ import com.example.ngopi.apps.rv.RvMenuModel;
 import java.util.ArrayList;
 
 public class AppCategoryActivity extends AppCompatActivity {
-    private int ids;
+    private int ids, img;
     private TextView cat1,cat2,cat3;
     private RecyclerView rvMenu;
+    private ImageView imgBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,9 @@ public class AppCategoryActivity extends AppCompatActivity {
         //up button
 
         ids = getIntent().getIntExtra("ids",0);
+        img = getIntent().getIntExtra("img",0);
 
+        imgBackground = findViewById(R.id.imgBackground);
         cat1 = findViewById(R.id.cat1);
         cat2 = findViewById(R.id.cat2);
         cat3 = findViewById(R.id.cat3);
@@ -42,6 +46,7 @@ public class AppCategoryActivity extends AppCompatActivity {
 
     private void menuView() {
 
+        imgBackground.setBackgroundResource(img);
         cat1.setText("All");
         if(ids == 0){
             cat2.setText("Small");

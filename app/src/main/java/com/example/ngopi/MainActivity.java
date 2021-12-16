@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         bgimg = findViewById(R.id.img);
         lottieAnimationView = findViewById(R.id.lottie);
 
-        logo.animate().translationY(2100).setDuration(1000).setStartDelay(4000);
-        lottieAnimationView.animate().translationY(2100).setDuration(1000).setStartDelay(4000);
+        logo.animate().translationY(2200).setDuration(1000).setStartDelay(3000);
+        lottieAnimationView.animate().translationY(2200).setDuration(1000).setStartDelay(3000);
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);

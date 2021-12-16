@@ -11,12 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NgopiCafe">
         <activity
+            android:name=".apps.AppPaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".apps.AppCategoryActivity"
             android:exported="false" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".apps.AppMainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".admin.AdminDashboardActivity"
             android:exported="false" />
