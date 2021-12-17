@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class Profile extends Fragment {
 
     private TextView fullname_pro,username_pro,email_pro,phonenum_pro,password_pro;
     TextView update;
+    ImageView logout;
     User user= new User();
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
 
@@ -41,8 +43,9 @@ public class Profile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-
         update = view.findViewById(R.id.update);
+
+        logout = view.findViewById(R.id.logout);
 
         fullname_pro = view.findViewById(R.id.fullname_pro);
         username_pro = view.findViewById(R.id.username_log);
@@ -51,7 +54,18 @@ public class Profile extends Fragment {
         password_pro = view.findViewById(R.id.password_pro);
         profilepage();
 
+        Bundle bundle = this.getArguments();
+        String username = bundle.getString("username",user.getUsername());
+
+        Toast.makeText(getActivity(),username,Toast.LENGTH_SHORT).show();
         update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Logout();

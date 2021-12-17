@@ -1,6 +1,7 @@
 package com.example.ngopi.apps;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -29,9 +30,10 @@ public class AppMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app_main);
 
         bubbleNavigationLinearView = findViewById(R.id.bubbleNav);
+
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
-        Toast.makeText(AppMainActivity.this, username,Toast.LENGTH_SHORT).show();
+
         menuBar();
     }
 
@@ -39,25 +41,35 @@ public class AppMainActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout,new Home());
         fragmentTransaction.commit();
-
+        Bundle bundle = new Bundle();
         bubbleNavigationLinearView.setNavigationChangeListener((view, position) -> {
 
             switch (position)
             {
                 case 0:
+                    bundle.putString("username", username);
+                    Home home = new Home();
+                    home.setArguments(bundle);
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.framelayout,new Home());
+                    fragmentTransaction.replace(R.id.framelayout,home);
                     fragmentTransaction.commit();
                     break;
                 case 1:
+                    bundle.putString("username", username);
+                    Cart cart = new Cart();
+                    cart.setArguments(bundle);
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.framelayout,new Cart());
+                    fragmentTransaction.replace(R.id.framelayout,cart);
                     fragmentTransaction.commit();
                     break;
                 case 2:
+                    bundle.putString("username", username);
+                    Profile profile = new Profile();
+                    profile.setArguments(bundle);
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.framelayout,new Profile());
+                    fragmentTransaction.replace(R.id.framelayout,profile);
                     fragmentTransaction.commit();
+
                     break;
             }
 

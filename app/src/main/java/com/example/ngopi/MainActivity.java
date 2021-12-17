@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, AdminDashboardActivity.class);
                 }
 
-
             }
             else{
                 intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -69,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         },SPLASH_SCREEN);
-
-        // Initialize Firebase Auth
 
 
 
