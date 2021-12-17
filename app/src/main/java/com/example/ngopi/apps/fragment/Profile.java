@@ -48,16 +48,15 @@ public class Profile extends Fragment {
         logout = view.findViewById(R.id.logout);
 
         fullname_pro = view.findViewById(R.id.fullname_pro);
-        username_pro = view.findViewById(R.id.username_log);
+        username_pro = view.findViewById(R.id.username_pro);
         email_pro = view.findViewById(R.id.email_pro);
         phonenum_pro = view.findViewById(R.id.phonenum_pro);
         password_pro = view.findViewById(R.id.password_pro);
         profilepage();
 
-        Bundle bundle = this.getArguments();
-        String username = bundle.getString("username",user.getUsername());
 
-        Toast.makeText(getActivity(),username,Toast.LENGTH_SHORT).show();
+
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +75,11 @@ public class Profile extends Fragment {
     }
     public void profilepage(){
 
+        Bundle bundle = this.getArguments();
+        String username = bundle.getString("username",user.getUsername());
 
         db.collection("Users")
-                .whereEqualTo("username",user.getUsername())
+                .whereEqualTo("username",username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -88,6 +89,8 @@ public class Profile extends Fragment {
                                 fullname_pro.setText(document.getData().get("fullname").toString());
                                 username_pro.setText(document.getData().get("username").toString());
                                 email_pro.setText(document.getData().get("email").toString());
+                                phonenum_pro.setText(document.getData().get("phonenum").toString());
+                                password_pro.setText(document.getData().get("password").toString());
                             }
                         }
                     }
