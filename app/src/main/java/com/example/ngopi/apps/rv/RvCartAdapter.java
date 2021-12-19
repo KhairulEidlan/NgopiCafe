@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ngopi.R;
 
 import java.util.ArrayList;
@@ -36,9 +37,8 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
     public void onBindViewHolder(@NonNull RvCartHolder holder, int position) {
         RvCartModel currentItem = cartItem.get(position);
 
-        holder.imageView.setImageResource(currentItem.getImage());
+        Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.txtTitle.setText(currentItem.getItemName());
-        holder.txtType.setText(currentItem.getItemType());
         holder.txtPrice.setText(String.format(Locale.getDefault(),"RM %.2f", currentItem.getItemPrice()));
 
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,6 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
             super(itemView);
             imageView = itemView.findViewById(R.id.imgView);
             txtTitle = itemView.findViewById(R.id.menuTitle);
-            txtType = itemView.findViewById(R.id.menuType);
             txtPrice = itemView.findViewById(R.id.menuPrice);
             btnRemove = itemView.findViewById(R.id.btnDelete);
         }

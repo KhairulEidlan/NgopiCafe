@@ -1,23 +1,21 @@
 package com.example.ngopi.apps.rv;
 
 public class RvCartModel {
-    private int image;
-    private String itemName,itemType;
+    private String itemName,itemImage;
     private double itemPrice;
 
-    public RvCartModel(int image, String itemName, String itemType, double itemPrice) {
-        this.image = image;
+    public RvCartModel(String itemImage, String itemName, double itemPrice) {
+        this.itemImage = itemImage;
         this.itemName = itemName;
-        this.itemType = itemType;
         this.itemPrice = itemPrice;
     }
 
-    public int getImage() {
-        return image;
+    public String getItemImage() {
+        return itemImage;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
     }
 
     public String getItemName() {
@@ -26,14 +24,6 @@ public class RvCartModel {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
-    }
-
-    public String getItemType() {
-        return itemType;
-    }
-
-    public void setItemType(String itemType) {
-        this.itemType = itemType;
     }
 
     public double getItemPrice() {

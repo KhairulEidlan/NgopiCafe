@@ -1,22 +1,32 @@
 package com.example.ngopi.apps.rv;
 
 public class RvMenuModel {
-    private String image;
+    private String itemId;
+    private String itemImage;
     private String itemName;
     private double itemPrice;
 
-    public RvMenuModel(String image, String itemName, double itemPrice) {
-        this.image = image;
+    public RvMenuModel(String itemId, String itemImage, String itemName, double itemPrice) {
+        this.itemId = itemId;
+        this.itemImage = itemImage;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
     }
 
-    public String getImage() {
-        return image;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemImage() {
+        return itemImage;
+    }
+
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
     }
 
     public String getItemName() {

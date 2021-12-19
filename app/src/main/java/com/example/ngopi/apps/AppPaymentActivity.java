@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.ngopi.MainActivity;
@@ -19,11 +20,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AppPaymentActivity extends AppCompatActivity {
+    TextView lblTotal;
     EditText txtTime;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
+    double totalCheckout;
     int currentHour,currentMinute,tHour,tMinute;
 
     @Override
@@ -33,6 +37,11 @@ public class AppPaymentActivity extends AppCompatActivity {
         //hide status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_app_payment);
+
+        totalCheckout = getIntent().getDoubleExtra("total",0);
+
+        lblTotal = findViewById(R.id.lblTotal);
+        lblTotal.append(String.format(Locale.getDefault(),"RM %.2f", totalCheckout));
 
         txtTime = findViewById(R.id.txtTimePicker);
         txtTime.setOnClickListener(v -> {

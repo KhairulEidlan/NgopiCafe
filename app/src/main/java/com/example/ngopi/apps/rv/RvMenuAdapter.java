@@ -37,21 +37,21 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
     public void onBindViewHolder(@NonNull RvMenuHolder holder, int position) {
         RvMenuModel currentItem = menuItem.get(position);
 
-        Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
+        Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.txtTitle.setText(currentItem.getItemName());
         holder.txtPrice.setText(String.format(Locale.getDefault(),"RM %.2f", currentItem.getItemPrice()));
 
         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"This is button "+holder.getLayoutPosition(),Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(),"This is button "+currentItem.getItemId(),Toast.LENGTH_LONG).show();
             }
         });
 
         holder.btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"This is button "+holder.getLayoutPosition(),Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(),"This is button "+currentItem.getItemId(),Toast.LENGTH_LONG).show();
             }
         });
     }

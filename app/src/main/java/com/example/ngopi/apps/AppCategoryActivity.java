@@ -71,6 +71,7 @@ public class AppCategoryActivity extends AppCompatActivity {
                                             ArrayList<RvMenuModel> menu = new ArrayList<>();
                                             for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
                                                 menu.add(new RvMenuModel(
+                                                        documentMenu.getId(),
                                                         documentMenu.getData().get("menu_pic").toString(),
                                                         documentMenu.getData().get("menu_name").toString(),
                                                         Double.parseDouble(documentMenu.getData().get("menu_price").toString())
