@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ngopi.OrderHistory;
 import com.example.ngopi.R;
 import com.example.ngopi.admin.AdminDashboardActivity;
 import com.example.ngopi.apps.AppMainActivity;
@@ -44,8 +45,8 @@ import java.util.Map;
 public class Profile extends Fragment {
 
     private EditText fullname_pro,username_pro,email_pro,phonenum_pro,password_pro;
-    TextView edit,save;
-    ImageView logout;
+    TextView edit,save,orderhistory;
+    ImageView logout, profile_pic,add_profile;
     User user= new User();
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     String uid;
@@ -58,8 +59,11 @@ public class Profile extends Fragment {
 
         edit = view.findViewById(R.id.edit);
         save = view.findViewById(R.id.save);
+        orderhistory = view.findViewById(R.id.orderhistory);
 
         logout = view.findViewById(R.id.logout);
+        profile_pic = view.findViewById(R.id.profile_pic);
+        add_profile = view.findViewById(R.id.add_profile);
 
         fullname_pro = view.findViewById(R.id.fullname_pro);
         username_pro = view.findViewById(R.id.username_pro);
@@ -74,6 +78,17 @@ public class Profile extends Fragment {
         password_pro.setEnabled(false);
         profilepage();
 
+        profile_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        add_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,12 +99,10 @@ public class Profile extends Fragment {
                 phonenum_pro.setEnabled(true);
                 password_pro.setEnabled(true);
                 edit.setVisibility(View.INVISIBLE);
+                orderhistory.setVisibility(View.INVISIBLE);
                 save.setVisibility(View.VISIBLE);
-
-
             }
         });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +110,19 @@ public class Profile extends Fragment {
                 {
                     edit.setVisibility(View.VISIBLE);
                     save.setVisibility(View.INVISIBLE);
+                    orderhistory.setVisibility(View.VISIBLE);
                     save();
                 }
                 else{return;
                 }
+            }
+        });
+
+        orderhistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderHistory.class);
+                startActivity(intent);
             }
         });
 
