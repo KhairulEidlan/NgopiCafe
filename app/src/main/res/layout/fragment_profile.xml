@@ -5,19 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".apps.fragment.Profile"
-    android:background="@color/white">
+    android:background="@drawable/gradient_background">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@mipmap/profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logout"
@@ -29,12 +19,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="68dp"
+        android:elevation="1dp"
+        app:cardCornerRadius="75dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/profile"
+            android:scaleType="fitCenter" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="164dp"
+        android:elevation="1dp"
+        app:cardBackgroundColor="#ffdead"
+        app:cardCornerRadius="75dp"
+
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/add_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_add"/>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="550dp"
         android:background="@drawable/bg_profile"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
         <TextView
             android:id="@+id/edit"
@@ -60,7 +94,7 @@
             android:textSize="18dp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -121,8 +155,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColorHint="#80000000"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="#000"
@@ -148,9 +182,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#80000000"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColorHint="#80000000"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="#000"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
@@ -174,9 +208,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#80000000"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColorHint="#80000000"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="#000"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
@@ -195,7 +229,6 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

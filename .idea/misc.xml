@@ -25,10 +25,13 @@
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable-v24/search_back.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/bg_profile.xml" value="0.2703125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/gradient_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_add.xml" value="0.3828125" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_btn_add.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_cart.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_home.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_profile.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/ic_search.xml" value="0.3828125" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/profile_background.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/round_corner.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/static_rv_bg.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/static_rv_selected_bg.xml" value="0.3828125" />
@@ -45,6 +48,8 @@
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_cart.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_cart.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_cat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/static_rv_item.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/mipmap-anydpi-v26/boba.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1537037037037037" />
