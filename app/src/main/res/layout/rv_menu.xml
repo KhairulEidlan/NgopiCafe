@@ -8,39 +8,24 @@
 
     <TextView
         android:id="@+id/menuTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:layout_toEndOf="@+id/cardView"
-        android:text="Red Velvet"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="normal"/>
-
-    <TextView
-        android:id="@+id/menuType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menuTitle"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/cardView"
-        android:text="Cupcakes"
-        android:textColor="#C8CDD1"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <TextView
         android:id="@+id/menuPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/menuType"
+        android:layout_below="@+id/menuTitle"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/cardView"
-        android:text="RM 5.00"
         android:textColor="#4FB6B2"
         android:textSize="18sp"
         android:textStyle="normal" />
@@ -49,21 +34,21 @@
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="78dp"
-        android:layout_toEndOf="@+id/menuType"
+        android:layout_toStartOf="@+id/btnFav"
         android:background="@drawable/ic_btn_add" />
 
     <ImageView
         android:id="@+id/btnFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="70dp"
-        android:layout_toEndOf="@+id/btnAdd"
         android:background="@drawable/ic_btn_favourite" />
 
     <androidx.cardview.widget.CardView
@@ -82,7 +67,8 @@
         <ImageView
             android:id="@+id/imgView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

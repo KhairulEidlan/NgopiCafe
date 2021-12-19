@@ -44,14 +44,19 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
 
             Intent intent = new Intent(v.getContext() , AppCategoryActivity.class);
             if(holder.getLayoutPosition() == 0){
+                intent.putExtra("name","Coffee");
                 intent.putExtra("img",R.drawable.bg_coffee);
             } else if(holder.getLayoutPosition() == 1){
+                intent.putExtra("name","Ice Coffee");
                 intent.putExtra("img",R.drawable.bg_ice_coffee);
             } else if(holder.getLayoutPosition() == 2){
+                intent.putExtra("name","Smoothies");
                 intent.putExtra("img",R.drawable.bg_coffee);
             } else if(holder.getLayoutPosition() == 3){
+                intent.putExtra("name","Dessert");
                 intent.putExtra("img",R.drawable.bg_dessert);
             } else if(holder.getLayoutPosition() == 4){
+                intent.putExtra("name","Beverage");
                 intent.putExtra("img",R.drawable.bg_drinks);
             }
             intent.putExtra("ids",holder.getLayoutPosition());

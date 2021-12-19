@@ -1,27 +1,27 @@
 package com.example.ngopi.apps;
 
+import android.os.Bundle;
+import android.view.WindowManager;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvMenuAdapter;
 import com.example.ngopi.apps.rv.RvMenuModel;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
 public class AppCategoryActivity extends AppCompatActivity {
     private int ids, img;
-    private TextView cat1,cat2,cat3;
+    private String name;
     private RecyclerView rvMenu;
     private ImageView imgBackground;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,13 @@ public class AppCategoryActivity extends AppCompatActivity {
         //up button
 
         ids = getIntent().getIntExtra("ids",0);
+        name = getIntent().getStringExtra("name");
         img = getIntent().getIntExtra("img",0);
 
+        // Firestore Database
+        db = FirebaseFirestore.getInstance();
+
         imgBackground = findViewById(R.id.imgBackground);
-        cat1 = findViewById(R.id.cat1);
-        cat2 = findViewById(R.id.cat2);
-        cat3 = findViewById(R.id.cat3);
         rvMenu = findViewById(R.id.item);
 
         menuView();
@@ -47,79 +48,43 @@ public class AppCategoryActivity extends AppCompatActivity {
     private void menuView() {
 
         imgBackground.setBackgroundResource(img);
-        cat1.setText("All");
-        if(ids == 0){
-            cat2.setText("Small");
-            cat3.setText("Regular");
-        } else if(ids == 1){
-            cat2.setText("Regular");
-            cat3.setText("Tall");
-        } else if(ids == 2){
-            cat2.setText("Bubble Tea");
-            cat3.setText("Smoothie");
-        } else if(ids == 3){
-            cat2.setText("Ice Cream");
-            cat3.setText("Cake");
-        } else if(ids == 4){
-            cat2.setText("Can");
-            cat3.setText("Bottle");
-        }
 
-        clickCategory();
         recyclerview();
     }
 
-    private void clickCategory() {
-        cat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cat1.setTextColor(Color.parseColor("#000000"));
-                cat2.setTextColor(Color.parseColor("#C8CDD1"));
-                cat3.setTextColor(Color.parseColor("#C8CDD1"));
-            }
-        });
-        cat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cat1.setTextColor(Color.parseColor("#C8CDD1"));
-                cat2.setTextColor(Color.parseColor("#000000"));
-                cat3.setTextColor(Color.parseColor("#C8CDD1"));
-                if (ids == 0){
-                } else if(ids == 1){
-                } else if(ids == 2){
-                } else if(ids == 3){
-                } else if(ids == 4){
-                }
-            }
-        });
-
-        cat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cat1.setTextColor(Color.parseColor("#C8CDD1"));
-                cat2.setTextColor(Color.parseColor("#C8CDD1"));
-                cat3.setTextColor(Color.parseColor("#000000"));
-                if (ids == 0){
-                } else if(ids == 1){
-                } else if(ids == 2){
-                } else if(ids == 3){
-                } else if(ids == 4){
-                }
-            }
-        });
-    }
 
     private void recyclerview() {
 
-        ArrayList<RvMenuModel> menu = new ArrayList<>();
-        menu.add(new RvMenuModel(R.mipmap.coffee_foreground,"Coffee","Tall", 23.50));
-        menu.add(new RvMenuModel(R.mipmap.ice_coffee_foreground,"Ice Coffee","Tall",13.10));
-        menu.add(new RvMenuModel(R.mipmap.boba_foreground,"Smoothies","Tall",20.30));
-        menu.add(new RvMenuModel(R.mipmap.ice_cream_foreground,"Dessert","Tall",33.60));
-        menu.add(new RvMenuModel(R.mipmap.can_foreground,"Beverage","Tall",18.90));
+        db.collection("Category")
+                .whereEqualTo("name",name)
+                .get()
+                .addOnCompleteListener(taskCategory -> {
+                    if (taskCategory.isSuccessful()){
+                        for (QueryDocumentSnapshot documentCategory : taskCategory.getResult()){
+                            documentCategory.getReference().collection("Menu")
+                                    .whereEqualTo("is_active",true)
+                                    .whereEqualTo("is_deleted",false)
+                                    .get()
+                                    .addOnCompleteListener(taskMenu -> {
+                                        if (taskMenu.isSuccessful()){
 
-        RvMenuAdapter menuAdapter = new RvMenuAdapter(this, menu);
-        rvMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        rvMenu.setAdapter(menuAdapter);
+                                            ArrayList<RvMenuModel> menu = new ArrayList<>();
+                                            for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
+                                                menu.add(new RvMenuModel(
+                                                        documentMenu.getData().get("menu_pic").toString(),
+                                                        documentMenu.getData().get("menu_name").toString(),
+                                                        Double.parseDouble(documentMenu.getData().get("menu_price").toString())
+                                                    )
+                                                );
+                                            }
+
+                                            RvMenuAdapter menuAdapter = new RvMenuAdapter(this, menu);
+                                            rvMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+                                            rvMenu.setAdapter(menuAdapter);
+                                        }
+                            });
+                        }
+                    }
+        });
     }
 }
