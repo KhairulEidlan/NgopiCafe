@@ -93,10 +93,14 @@ public class Profile extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit.setVisibility(View.VISIBLE);
-                save.setVisibility(View.INVISIBLE);
-                save();
-
+                if (validateFullname() && validateUsername() && validateEmail() && validatePhoneNum() && validatePassword() == true)
+                {
+                    edit.setVisibility(View.VISIBLE);
+                    save.setVisibility(View.INVISIBLE);
+                    save();
+                }
+                else{return;
+                }
             }
         });
 
@@ -133,33 +137,103 @@ public class Profile extends Fragment {
                     }
                 });
     }
+    public boolean validateFullname(){
+        String val = fullname_pro.getText().toString();
+        if (val.isEmpty()){
+            fullname_pro.setError("field cannot be empty");
+            return false;
+        }
+        else {
+            fullname_pro.setError(null);
+            return true;
+        }
+    }
+    public boolean validateUsername(){
+        String val = username_pro.getText().toString();
+        if (val.isEmpty()){
+            username_pro.setError("field cannot be empty");
+            return false;
+        }
+        else if (val.length()>=15){
+            username_pro.setError("username too long");
+            return false;
+
+        }
+        else {
+            username_pro.setError(null);
+            return true;
+        }
+    }
+    public boolean validateEmail(){
+        String val = email_pro.getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+        if (val.isEmpty()){
+            email_pro.setError("field cannot be empty");
+            return false;
+        }
+        else if (!val.matches(emailPattern)){
+            email_pro.setError("Invalid email address");
+            return false;
+        }
+        else {
+            email_pro.setError(null);
+            return true;
+        }
+    }
+    public boolean validatePhoneNum(){
+        String val = phonenum_pro.getText().toString();
+        if (val.isEmpty()){
+            phonenum_pro.setError("field cannot be empty");
+            return false;
+        }
+        else {
+            phonenum_pro.setError(null);
+            return true;
+        }
+    }
+    public boolean validatePassword(){
+        String val = password_pro.getText().toString();
+        if (val.isEmpty()){
+            password_pro.setError("field cannot be empty");
+            return false;
+        }
+        else {
+            password_pro.setError(null);
+            return true;
+        }
+    }
 
     public void save(){
-
-        Toast.makeText(getActivity(),fullname_pro.getText().toString(),Toast.LENGTH_SHORT).show();
         fullname_pro.setEnabled(false);
         username_pro.setEnabled(false);
         email_pro.setEnabled(false);
         phonenum_pro.setEnabled(false);
         password_pro.setEnabled(false);
 
-        DocumentReference documentReference = db.collection("Users").document();
+        DocumentReference documentReference = db.collection("Users").document(uid);
 
         documentReference
-                .update("fullname",fullname_pro.getText().toString())
+                .update(
+                        "fullname",fullname_pro.getText().toString(),
+                        "usename",username_pro.getText().toString(),
+                        "email",email_pro.getText().toString(),
+                        "phonenum",phonenum_pro.getText().toString(),
+                        "password",password_pro.getText().toString()
+                )
+
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getActivity(),"success!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"Unsuccess!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Update Unsuccessful!",Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
 

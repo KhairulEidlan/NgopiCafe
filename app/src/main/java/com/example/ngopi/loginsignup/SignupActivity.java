@@ -83,7 +83,6 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
-
     public boolean validateUsername(){
         String val = username_reg.getEditText().getText().toString();
         if (val.isEmpty()){
