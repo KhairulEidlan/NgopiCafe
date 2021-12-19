@@ -1,7 +1,11 @@
 package com.example.ngopi.apps.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +15,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,20 +42,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 public class Profile extends Fragment {
 
+    private static final int image_request = 1;
     private EditText fullname_pro,username_pro,email_pro,phonenum_pro,password_pro;
     TextView edit,save,orderhistory;
     ImageView logout, profile_pic,add_profile;
-    User user= new User();
-    private FirebaseFirestore db= FirebaseFirestore.getInstance();
+    LinearLayout layout_addpic;
     String uid;
+
+    User user= new User();
+
+    private FirebaseFirestore db= FirebaseFirestore.getInstance();
+    private StorageReference storage;
+
+    private Uri mImageUri;
+    private StorageTask mUploadTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,9 +70,13 @@ public class Profile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        // storage location
+        storage = FirebaseStorage.getInstance().getReference("Users");
+
         edit = view.findViewById(R.id.edit);
         save = view.findViewById(R.id.save);
         orderhistory = view.findViewById(R.id.orderhistory);
+        layout_addpic = view.findViewById(R.id.layout_addpic);
 
         logout = view.findViewById(R.id.logout);
         profile_pic = view.findViewById(R.id.profile_pic);
@@ -86,6 +103,8 @@ public class Profile extends Fragment {
         add_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                openFileChooser();
+
             }
         });
 
@@ -98,6 +117,8 @@ public class Profile extends Fragment {
                 email_pro.setEnabled(true);
                 phonenum_pro.setEnabled(true);
                 password_pro.setEnabled(true);
+
+                layout_addpic.setVisibility(View.VISIBLE);
                 edit.setVisibility(View.INVISIBLE);
                 orderhistory.setVisibility(View.INVISIBLE);
                 save.setVisibility(View.VISIBLE);
@@ -108,6 +129,7 @@ public class Profile extends Fragment {
             public void onClick(View v) {
                 if (validateFullname() && validateUsername() && validateEmail() && validatePhoneNum() && validatePassword() == true)
                 {
+                    layout_addpic.setVisibility(View.INVISIBLE);
                     edit.setVisibility(View.VISIBLE);
                     save.setVisibility(View.INVISIBLE);
                     orderhistory.setVisibility(View.VISIBLE);
@@ -135,6 +157,24 @@ public class Profile extends Fragment {
 
         return view;
     }
+    private void openFileChooser(){
+        Intent photoPickerIntent = new Intent();
+        photoPickerIntent.setType("image/*");
+        photoPickerIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(photoPickerIntent, 1);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            profile_pic.setImageURI(mImageUri);
+        }
+    }
+
     public void profilepage(){
 
         Bundle bundle = this.getArguments();
@@ -154,6 +194,7 @@ public class Profile extends Fragment {
                                 email_pro.setText(document.getData().get("email").toString());
                                 phonenum_pro.setText(document.getData().get("phonenum").toString());
                                 password_pro.setText(document.getData().get("password").toString());
+
                             }
                         }
                     }
@@ -226,6 +267,12 @@ public class Profile extends Fragment {
         }
     }
 
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
     public void save(){
         fullname_pro.setEnabled(false);
         username_pro.setEnabled(false);
@@ -233,29 +280,57 @@ public class Profile extends Fragment {
         phonenum_pro.setEnabled(false);
         password_pro.setEnabled(false);
 
-        DocumentReference documentReference = db.collection("Users").document(uid);
+        if (mImageUri != null) {
+            StorageReference fileReference = storage.child(System.currentTimeMillis()
+                    + "." + getFileExtension(mImageUri));
 
-        documentReference
-                .update(
-                        "fullname",fullname_pro.getText().toString(),
-                        "usename",username_pro.getText().toString(),
-                        "email",email_pro.getText().toString(),
-                        "phonenum",phonenum_pro.getText().toString(),
-                        "password",password_pro.getText().toString()
-                )
+            mUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            user.setImageURL(taskSnapshot.getStorage().getDownloadUrl().toString());
+                            Toast.makeText(getActivity(), user.getImageURL(),Toast.LENGTH_SHORT).show();
+                            DocumentReference documentReference = db.collection("Users").document(uid);
+                            documentReference
+                                    .update(
+                                            "fullname",fullname_pro.getText().toString(),
+                                            "usename",username_pro.getText().toString(),
+                                            "email",email_pro.getText().toString(),
+                                            "phonenum",phonenum_pro.getText().toString(),
+                                            "password",password_pro.getText().toString(),
+                                            "imageUrl",user.getImageURL()
+                                    );
+                        }
+                    });
 
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"Update Unsuccessful!",Toast.LENGTH_SHORT).show();
-                    }
-                });
+        } else {
+            Toast.makeText(getActivity(),"Update UNSuccessful!",Toast.LENGTH_SHORT).show();
+        }
+
+//        DocumentReference documentReference = db.collection("Users").document(uid);
+//        documentReference
+//                .update(
+//                        "fullname",fullname_pro.getText().toString(),
+//                        "usename",username_pro.getText().toString(),
+//                        "email",email_pro.getText().toString(),
+//                        "phonenum",phonenum_pro.getText().toString(),
+//                        "password",password_pro.getText().toString()
+//                )
+//
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getActivity(),"Update Unsuccessful!",Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+
     }
 
 

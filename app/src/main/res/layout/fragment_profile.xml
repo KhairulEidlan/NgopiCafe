@@ -35,16 +35,17 @@
             android:id="@+id/profile_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@mipmap/profile"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/layout_addpic"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="116dp"
         android:background="@drawable/bg_profile"
         android:elevation="2dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="@+id/cardView2"

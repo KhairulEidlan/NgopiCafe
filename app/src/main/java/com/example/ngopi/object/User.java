@@ -1,19 +1,20 @@
 package com.example.ngopi.object;
 
 public class User {
-    private String fullname,username,email,password,phonenum,usertype;
+    private String fullname,username,email,password,phonenum,usertype,imageURL;
 
     public User() {
 
     }
 
-    public User(String fullname, String username, String email, String password, String phonenum, String usertype) {
+    public User(String fullname, String username, String email, String password, String phonenum, String usertype,String imageURL) {
         this.fullname = fullname;
         this.username = username;
         this.email = email;
         this.password = password;
         this.phonenum = phonenum;
         this.usertype = usertype;
+        this.imageURL = imageURL;
 
     }
 
@@ -64,4 +65,14 @@ public class User {
     public void setUsertype(String usertype) {
         this.usertype = usertype;
     }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+
 }
