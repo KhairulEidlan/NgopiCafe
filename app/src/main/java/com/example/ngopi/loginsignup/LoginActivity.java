@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void Validatepage(){
+        String uid;
         db.collection("Users")
                 .whereEqualTo("username",user.getUsername())
                 .whereEqualTo("password",user.getPassword())
