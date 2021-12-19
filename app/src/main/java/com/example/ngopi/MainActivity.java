@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.ngopi.admin.AdminDashboardActivity;
 import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.loginsignup.LoginActivity;
+import com.example.ngopi.loginsignup.SignupActivity;
 import com.example.ngopi.object.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             if(currentUser != null) {
                 if (usertype.equals("User"))
                 {
+                    Toast.makeText(MainActivity.this, "Welcome Back " + username,Toast.LENGTH_SHORT).show();
                     intent = new Intent(MainActivity.this, AppMainActivity.class);
                 }
                 else {

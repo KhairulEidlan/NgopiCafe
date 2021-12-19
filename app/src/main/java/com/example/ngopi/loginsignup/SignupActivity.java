@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,7 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputLayout fullname_reg,username_reg,email_reg,phonenum_reg,password_reg;
 
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
-
+    private FirebaseAuth mAuth;
     LinearLayout layout1;
     User user= new User();
 
@@ -38,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         //hide status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_signup);
+        mAuth = FirebaseAuth.getInstance();
 
         //button
         sign = findViewById(R.id.sign);
@@ -99,7 +102,6 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
-
     public boolean validateEmail(){
         String val = email_reg.getEditText().getText().toString();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -118,7 +120,6 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
-
     public boolean validatePhoneNum(){
         String val = phonenum_reg.getEditText().getText().toString();
         if (val.isEmpty()){
@@ -131,7 +132,6 @@ public class SignupActivity extends AppCompatActivity {
             return true;
         }
     }
-
     public boolean validatePassword(){
         String val = password_reg.getEditText().getText().toString();
         if (val.isEmpty()){
@@ -146,7 +146,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void RegisterUser(){
-
 
         user.setFullname(fullname_reg.getEditText().getText().toString());
         user.setUsername(username_reg.getEditText().getText().toString());
@@ -170,8 +169,15 @@ public class SignupActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(SignupActivity.this, "Register Successfull",Toast.LENGTH_SHORT).show();
+                                            mAuth.signInAnonymously();
+                                            SharedPreferences.Editor editor = getSharedPreferences("UserPreferences", MODE_PRIVATE).edit();
+                                            editor.putString("username", user.getUsername());
+                                            editor.putString("usertype", "User");
+                                            editor.apply();
+                                            Toast.makeText(SignupActivity.this, "Welcome " + user.getUsername(),Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SignupActivity.this , AppMainActivity.class);
+                                            intent.putExtra("username",user.getUsername().toString());
+                                            startActivity(intent);
                                             startActivity(intent);
                                             finish();
                                         }
