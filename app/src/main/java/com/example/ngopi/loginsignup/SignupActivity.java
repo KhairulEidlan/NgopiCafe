@@ -153,6 +153,7 @@ public class SignupActivity extends AppCompatActivity {
         user.setPhonenum(phonenum_reg.getEditText().getText().toString());
         user.setPassword(password_reg.getEditText().getText().toString());
         user.setUsertype("User");
+        user.setImageURL("https://firebasestorage.googleapis.com/v0/b/ngopi-4dccb.appspot.com/o/Users%2Fprofile.jpeg?alt=media&token=b46754ac-9f9e-49fc-95bb-2bd4ef27aaea");
         //check register email
         db.collection("Users").whereEqualTo("email",user.getEmail())
                 .get()

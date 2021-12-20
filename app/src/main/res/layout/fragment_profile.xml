@@ -35,7 +35,6 @@
             android:id="@+id/profile_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_img_profile"
             android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 

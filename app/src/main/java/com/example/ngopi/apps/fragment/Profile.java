@@ -195,7 +195,7 @@ public class Profile extends Fragment {
                                 email_pro.setText(document.getData().get("email").toString());
                                 phonenum_pro.setText(document.getData().get("phonenum").toString());
                                 password_pro.setText(document.getData().get("password").toString());
-                                String link = document.getData().get("imageUrl").toString();
+                                String link = document.getData().get("imageURL").toString();
                                 Picasso.get().load(link).into(profile_pic);
 
                             }
@@ -301,7 +301,7 @@ public class Profile extends Fragment {
                                                     "email",email_pro.getText().toString(),
                                                     "phonenum",phonenum_pro.getText().toString(),
                                                     "password",password_pro.getText().toString(),
-                                                    "imageUrl",task.getResult().toString()
+                                                    "imageURL",task.getResult().toString()
 
                                             );
                                     user.setImageURL(task.getResult().toString());
@@ -313,33 +313,7 @@ public class Profile extends Fragment {
         } else {
             Toast.makeText(getActivity(),"Update UNSuccessful!",Toast.LENGTH_SHORT).show();
         }
-
-//        DocumentReference documentReference = db.collection("Users").document(uid);
-//        documentReference
-//                .update(
-//                        "fullname",fullname_pro.getText().toString(),
-//                        "usename",username_pro.getText().toString(),
-//                        "email",email_pro.getText().toString(),
-//                        "phonenum",phonenum_pro.getText().toString(),
-//                        "password",password_pro.getText().toString()
-//                )
-//
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(getActivity(),"Update Unsuccessful!",Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
     }
-
 
     public void Logout(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
