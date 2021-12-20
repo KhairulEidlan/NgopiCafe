@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 
 public class AppCategoryActivity extends AppCompatActivity {
+    private Bundle bundle;
     private int ids, img;
     private String name;
     private RecyclerView rvMenu;
@@ -72,6 +73,7 @@ public class AppCategoryActivity extends AppCompatActivity {
                                             for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
                                                 menu.add(new RvMenuModel(
                                                         documentMenu.getId(),
+                                                        name,
                                                         documentMenu.getData().get("menu_pic").toString(),
                                                         documentMenu.getData().get("menu_name").toString(),
                                                         Double.parseDouble(documentMenu.getData().get("menu_price").toString())

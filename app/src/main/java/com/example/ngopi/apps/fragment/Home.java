@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvCatAdapter;
 import com.example.ngopi.apps.rv.RvCatModel;
+import com.example.ngopi.object.User;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,9 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Bundle bundle = this.getArguments();
+        User user= new User();
 
         recyclerView = view.findViewById(R.id.rcview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));

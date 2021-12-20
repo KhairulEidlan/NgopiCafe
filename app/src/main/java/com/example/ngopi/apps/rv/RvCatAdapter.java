@@ -22,7 +22,7 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
     private final ArrayList<RvCatModel> category;
     int row_index = -1;
 
-    public RvCatAdapter(Context context,ArrayList<RvCatModel> category) {
+    public RvCatAdapter(Context context, ArrayList<RvCatModel> category) {
         this.category = category;
     }
 
