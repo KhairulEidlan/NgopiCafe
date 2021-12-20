@@ -46,6 +46,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
 
@@ -71,7 +72,7 @@ public class Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         // storage location
-        storage = FirebaseStorage.getInstance().getReference("Users");
+        storage = FirebaseStorage.getInstance().getReference("Users/");
 
         edit = view.findViewById(R.id.edit);
         save = view.findViewById(R.id.save);
@@ -171,7 +172,7 @@ public class Profile extends Fragment {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            profile_pic.setImageURI(mImageUri);
+            Picasso.get().load(mImageUri).into(profile_pic);
         }
     }
 
@@ -194,6 +195,8 @@ public class Profile extends Fragment {
                                 email_pro.setText(document.getData().get("email").toString());
                                 phonenum_pro.setText(document.getData().get("phonenum").toString());
                                 password_pro.setText(document.getData().get("password").toString());
+                                String link = document.getData().get("imageUrl").toString();
+                                Picasso.get().load(link).into(profile_pic);
 
                             }
                         }
@@ -281,25 +284,29 @@ public class Profile extends Fragment {
         password_pro.setEnabled(false);
 
         if (mImageUri != null) {
-            StorageReference fileReference = storage.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
+            StorageReference fileReference = storage.child(uid + "." + getFileExtension(mImageUri));
 
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            user.setImageURL(taskSnapshot.getStorage().getDownloadUrl().toString());
-                            Toast.makeText(getActivity(), user.getImageURL(),Toast.LENGTH_SHORT).show();
-                            DocumentReference documentReference = db.collection("Users").document(uid);
-                            documentReference
-                                    .update(
-                                            "fullname",fullname_pro.getText().toString(),
-                                            "usename",username_pro.getText().toString(),
-                                            "email",email_pro.getText().toString(),
-                                            "phonenum",phonenum_pro.getText().toString(),
-                                            "password",password_pro.getText().toString(),
-                                            "imageUrl",user.getImageURL()
-                                    );
+                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+                                    DocumentReference documentReference = db.collection("Users").document(uid);
+                                    documentReference
+                                            .update(
+                                                    "fullname",fullname_pro.getText().toString(),
+                                                    "usename",username_pro.getText().toString(),
+                                                    "email",email_pro.getText().toString(),
+                                                    "phonenum",phonenum_pro.getText().toString(),
+                                                    "password",password_pro.getText().toString(),
+                                                    "imageUrl",task.getResult().toString()
+
+                                            );
+                                    user.setImageURL(task.getResult().toString());
+                                }
+                            });
                         }
                     });
 
