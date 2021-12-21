@@ -6,6 +6,7 @@ public class RvMenuModel {
     private String itemImage;
     private String itemName;
     private double itemPrice;
+    private boolean itemactive;
 
     public RvMenuModel(String itemId, String itemCategory, String itemImage, String itemName, double itemPrice) {
         this.itemId = itemId;
@@ -54,4 +55,6 @@ public class RvMenuModel {
     public void setItemPrice(double itemPrice) {
         this.itemPrice = itemPrice;
     }
+
+
 }

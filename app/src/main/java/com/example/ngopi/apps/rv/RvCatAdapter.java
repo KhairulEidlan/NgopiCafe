@@ -51,7 +51,7 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
                 intent.putExtra("img",R.drawable.bg_ice_coffee);
             } else if(holder.getLayoutPosition() == 2){
                 intent.putExtra("name","Smoothies");
-                intent.putExtra("img",R.drawable.bg_coffee);
+                intent.putExtra("img",R.drawable.bg_smoothies);
             } else if(holder.getLayoutPosition() == 3){
                 intent.putExtra("name","Dessert");
                 intent.putExtra("img",R.drawable.bg_dessert);
