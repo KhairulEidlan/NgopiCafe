@@ -50,7 +50,6 @@ import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
 
-    private static final int image_request = 1;
     private EditText fullname_pro,username_pro,email_pro,phonenum_pro,password_pro;
     TextView edit,save,orderhistory;
     ImageView logout, profile_pic,add_profile;
@@ -146,6 +145,7 @@ public class Profile extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OrderHistory.class);
                 startActivity(intent);
+
             }
         });
 

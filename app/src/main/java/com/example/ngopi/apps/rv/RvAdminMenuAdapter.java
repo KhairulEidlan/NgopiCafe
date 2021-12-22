@@ -1,9 +1,12 @@
 package com.example.ngopi.apps.rv;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.example.ngopi.AdminCategory;
 import com.example.ngopi.R;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,6 +39,8 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
     private Context context;
     private ArrayList<RvMenuModel> menuItem;
 
+    private View view;
+
     public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem) {
         this.context = context;
         this.menuItem = menuItem;
@@ -41,8 +48,9 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
     @NonNull
     @Override
     public RvAdminMenuHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_admin_menu,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_admin_menu,parent,false);
         return new RvAdminMenuHolder(view);
+
     }
 
     @Override
@@ -51,7 +59,7 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
 
         Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.Title.setText(currentItem.getItemName());
-        holder.Price.setText(String.format(Locale.getDefault(),"RM %.2f", currentItem.getItemPrice()));
+        holder.Price.setText(String.format(Locale.getDefault(),"RM %.2f", Double.parseDouble(currentItem.getItemPrice())));
 
         holder.btnedit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +68,7 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
 //                Toast.makeText(v.getContext(), "Clicked Laugh Vote" + currentItem.getItemName(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
     private void openDialog(View v, RvMenuModel currentItem) {
@@ -76,6 +85,8 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
         ImageView imageItemMenu;
         SwitchCompat activebtn;
         Button btnCancel,btnConfirm;
+        Uri mImageUri;
+        final int GET_FROM_GALLERY = 3;
 
         item_title = dialogView.findViewById(R.id.item_title);
         item_price = dialogView.findViewById(R.id.item_price);
@@ -86,8 +97,29 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
         btnConfirm = dialogView.findViewById(R.id.btnConfirm);
 
         item_title.setText(currentItem.getItemName());
-        item_price.setText(String.format(Locale.getDefault()," %.2f", currentItem.getItemPrice()));
+        item_price.setText(String.format(Locale.getDefault(),"%.2f", Double.parseDouble(currentItem.getItemPrice())));
         Glide.with(context).load(currentItem.getItemImage()).into(imageItemMenu);
+
+//        if (currentItem.getitemActive() == true){
+//            activebtn.setChecked(true);
+//        }
+//        else{
+//            activebtn.setChecked(false);
+//        }
+
+        imageItemMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent photoPickerIntent = new Intent();
+//                photoPickerIntent.setType("image/*");
+//                photoPickerIntent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//                context.startActivity(photoPickerIntent,1);
+////                startActivityForResult(photoPickerIntent, 1);
+            }
+
+
+        });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +131,15 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
             @Override
             public void onClick(View v) {
 //                currentItem.setItemName(item_title.getText().toString());
+//                if (activebtn.isChecked()){
+//                    currentItem.setItemActive(true);
+//                }
+//                else{
+//                    currentItem.setItemActive(false);
+//                }
+//                currentItem.setItemName(item_title.getText().toString());
+//                currentItem.setItemPrice(Double.parseDouble(item_price.getText().toString()));
+//                Toast.makeText(v.getContext(), "Clicked Laugh Vote  " + currentItem.getitemActive(), Toast.LENGTH_SHORT).show();
             }
         });
         menuDialog.setCancelable(true);
@@ -112,17 +153,15 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
 
     private void toDatabase(RvMenuModel currentItem) {
 
-
-
     }
 
     public static class RvAdminMenuHolder extends RecyclerView.ViewHolder{
         TextView Title, Price;
         ImageView imageView, btnedit;
-        SwitchCompat activebtn;
 
         public RvAdminMenuHolder(@NonNull View itemView) {
             super(itemView);
+
             imageView = itemView.findViewById(R.id.imgView);
             Title = itemView.findViewById(R.id.title);
             Price = itemView.findViewById(R.id.price);
