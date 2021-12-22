@@ -34,22 +34,11 @@
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="78dp"
-        android:layout_toStartOf="@+id/btnFav"
         android:background="@drawable/ic_btn_add" />
-
-    <ImageView
-        android:id="@+id/btnFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/ic_btn_favourite" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"

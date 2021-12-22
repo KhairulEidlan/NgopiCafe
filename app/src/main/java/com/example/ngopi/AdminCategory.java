@@ -77,7 +77,7 @@ public class AdminCategory extends AppCompatActivity {
                                                                 name,
                                                                 documentMenu.getData().get("menu_pic").toString(),
                                                                 documentMenu.getData().get("menu_name").toString(),
-                                                                Double.parseDouble(documentMenu.getData().get("menu_price").toString())
+                                                                documentMenu.getData().get("menu_price").toString()
                                                         )
                                                 );
                                             }

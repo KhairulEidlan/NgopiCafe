@@ -1,35 +1,83 @@
 package com.example.ngopi.apps.rv;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ngopi.R;
+import com.example.ngopi.apps.fragment.Cart;
+import com.example.ngopi.apps.model.Order;
+import com.example.ngopi.apps.model.OrderDetail;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHolder> {
-    private Context context;
-    private ArrayList<RvCartModel> cartItem;
+    private final Context context;
+    private final ArrayList<RvCartModel> cartItem;
+    private final String username;
 
-    public RvCartAdapter(Context context, ArrayList<RvCartModel> cartItem) {
+    String userId;
+
+    private View view;
+    private Dialog cartDialog;
+
+    private FirebaseFirestore db;
+
+    public RvCartAdapter(Context context, ArrayList<RvCartModel> cartItem, String username) {
         this.context = context;
         this.cartItem = cartItem;
+        this.username = username;
     }
 
     @NonNull
     @Override
     public RvCartHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_cart,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_cart,parent,false);
+
+        RvCartHolder refresh = new RvCartHolder(view);
+
+        db = FirebaseFirestore.getInstance();
+        db.collection("Users")
+                .whereEqualTo("username",username)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            userId = document.getId();
+                        }
+                    }
+                });
+
+
+        cartDialog = new Dialog(view.getContext());
+
         return new RvCartHolder(view);
     }
 
@@ -38,20 +86,122 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
         RvCartModel currentItem = cartItem.get(position);
 
         Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
-        holder.txtTitle.setText(currentItem.getItemName());
+        holder.txtTitle.setText(currentItem.getItemName()+" (x"+currentItem.getItemQty()+")");
+        holder.txtType.setText(currentItem.getItemType());
         holder.txtPrice.setText(String.format(Locale.getDefault(),"RM %.2f", currentItem.getItemPrice()));
 
-        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(),"This is button "+holder.getLayoutPosition(),Toast.LENGTH_LONG).show();
-            }
+        holder.btnRemove.setOnClickListener(v -> {
+            openDialog(currentItem);
         });
     }
 
     @Override
     public int getItemCount() {
         return cartItem == null ? 0:cartItem.size();
+    }
+
+    private void openDialog(RvCartModel currentItem) {
+        view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_cart,null);
+
+        cartDialog.setContentView(view);
+        cartDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));
+        cartDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        cartDialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+        Button btnAll, btnOne;
+
+        btnAll = view.findViewById(R.id.btnAll);
+        btnOne = view.findViewById(R.id.btnOne);
+
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toDatabase(currentItem,"all");
+            }
+        });
+
+        btnOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toDatabase(currentItem,"one");
+            }
+        });
+
+        cartDialog.setCancelable(true);
+        cartDialog.show();
+    }
+
+    private void toDatabase(RvCartModel currentItem, String type) {
+
+        db.collection("Order")
+                .whereEqualTo("userId",userId)
+                .whereEqualTo("status","In Cart")
+                .get()
+                .addOnCompleteListener(taskOrder -> {
+                    if (taskOrder.isSuccessful()){
+                        for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()){
+                            documentOrder.getReference()
+                                    .collection("Order Details")
+                                    .whereEqualTo("menuId",currentItem.getItemId())
+                                    .whereEqualTo("type",currentItem.getItemType())
+                                    .get()
+                                    .addOnCompleteListener(taskMenuItem -> {
+                                        if (taskMenuItem.isSuccessful()){
+                                            for (QueryDocumentSnapshot documentMenuItem : taskMenuItem.getResult()){
+                                                if(type.equals("one")){
+                                                    int qty = Integer.parseInt(documentMenuItem.getData().get("quantity").toString());
+                                                    if(qty > 1){
+                                                        CollectionReference dbOrderDetail = db.collection("Order").document(documentOrder.getId()).collection("Order Details");
+
+                                                        Map<String, Object> updateOrderDetail = new HashMap<>();
+                                                        updateOrderDetail.put("quantity", qty - 1);
+
+                                                        dbOrderDetail.document(documentMenuItem.getId())
+                                                                .update(updateOrderDetail)
+                                                                .addOnSuccessListener(unused -> {
+                                                                    Toast.makeText(view.getContext(), "Successfully added to your order", Toast.LENGTH_SHORT).show();
+                                                                    cartDialog.cancel();
+                                                                });
+                                                    } else {
+                                                        db.collection("Order")
+                                                                .document(documentOrder.getId())
+                                                                .collection("Order Details")
+                                                                .document(documentMenuItem.getId())
+                                                                .delete()
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
+                                                                        cartDialog.cancel();
+                                                                    }
+                                                                });
+                                                    }
+                                                } else if(type.equals("all")){
+                                                    db.collection("Order")
+                                                            .document(documentOrder.getId())
+                                                            .collection("Order Details")
+                                                            .document(documentMenuItem.getId())
+                                                            .delete()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
+                                                                    cartDialog.cancel();
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                        }
+                                    });
+
+                        }
+                    }
+                    else {
+                        System.out.println("Error: "+ taskOrder.getException());
+                    }
+                });
+
     }
 
     public static class RvCartHolder extends RecyclerView.ViewHolder{
@@ -63,6 +213,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
             super(itemView);
             imageView = itemView.findViewById(R.id.imgView);
             txtTitle = itemView.findViewById(R.id.menuTitle);
+            txtType = itemView.findViewById(R.id.menuType);
             txtPrice = itemView.findViewById(R.id.menuPrice);
             btnRemove = itemView.findViewById(R.id.btnDelete);
         }

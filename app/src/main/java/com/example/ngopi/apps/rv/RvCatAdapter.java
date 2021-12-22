@@ -19,10 +19,14 @@ import com.example.ngopi.apps.AppCategoryActivity;
 import java.util.ArrayList;
 
 public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder> {
+    private Context context;
+    private String username;
     private final ArrayList<RvCatModel> category;
     int row_index = -1;
 
-    public RvCatAdapter(Context context, ArrayList<RvCatModel> category) {
+    public RvCatAdapter(Context context, String username, ArrayList<RvCatModel> category) {
+        this.context = context;
+        this.username = username;
         this.category = category;
     }
 
@@ -60,6 +64,7 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
                 intent.putExtra("img",R.drawable.bg_drinks);
             }
             intent.putExtra("ids",holder.getLayoutPosition());
+            intent.putExtra("username",username);
             v.getContext().startActivity(intent);
         });
         if (row_index == position){

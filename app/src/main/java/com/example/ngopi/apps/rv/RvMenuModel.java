@@ -5,10 +5,10 @@ public class RvMenuModel {
     private String itemCategory;
     private String itemImage;
     private String itemName;
-    private double itemPrice;
+    private String itemPrice;
     private boolean itemactive;
 
-    public RvMenuModel(String itemId, String itemCategory, String itemImage, String itemName, double itemPrice) {
+    public RvMenuModel(String itemId, String itemCategory, String itemImage, String itemName, String itemPrice) {
         this.itemId = itemId;
         this.itemCategory = itemCategory;
         this.itemImage = itemImage;
@@ -48,11 +48,11 @@ public class RvMenuModel {
         this.itemName = itemName;
     }
 
-    public double getItemPrice() {
+    public String getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(double itemPrice) {
+    public void setItemPrice(String itemPrice) {
         this.itemPrice = itemPrice;
     }
 

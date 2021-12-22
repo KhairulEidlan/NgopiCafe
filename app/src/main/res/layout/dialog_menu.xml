@@ -39,7 +39,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/cardViewImage"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="230dp"
+        android:layout_marginStart="150dp"
         android:orientation="horizontal">
 
         <TextView
@@ -47,22 +47,36 @@
             android:layout_height="match_parent"
             android:text="Type: "
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textAlignment="center"/>
         <Spinner
             android:id="@+id/spinnerMenuItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textAlignment="center"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/lblItemMenuInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llItemMenu"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/llItemMenu"
+        android:layout_below="@+id/lblItemMenuInfo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         android:text="Confirm"
         android:textAllCaps="false"

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvCatAdapter;
 import com.example.ngopi.apps.rv.RvCatModel;
-import com.example.ngopi.object.User;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         Bundle bundle = this.getArguments();
-        User user= new User();
+        String username = bundle.getString("username");
 
         recyclerView = view.findViewById(R.id.rcview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
@@ -39,7 +38,7 @@ public class Home extends Fragment {
         item.add(new RvCatModel(R.mipmap.ice_cream_foreground,"Dessert"));
         item.add(new RvCatModel(R.mipmap.can_foreground,"Beverage"));
 
-        recyclerView.setAdapter(new RvCatAdapter(getContext(),item));
+        recyclerView.setAdapter(new RvCatAdapter(getContext(),username, item));
 
         return view;
     }

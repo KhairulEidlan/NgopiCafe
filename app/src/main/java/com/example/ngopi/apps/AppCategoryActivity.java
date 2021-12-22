@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class AppCategoryActivity extends AppCompatActivity {
     private Bundle bundle;
     private int ids, img;
+    private String username;
     private String name;
     private RecyclerView rvMenu;
     private ImageView imgBackground;
@@ -34,6 +35,7 @@ public class AppCategoryActivity extends AppCompatActivity {
         //up button
 
         ids = getIntent().getIntExtra("ids",0);
+        username = getIntent().getStringExtra("username");
         name = getIntent().getStringExtra("name");
         img = getIntent().getIntExtra("img",0);
 
@@ -76,12 +78,12 @@ public class AppCategoryActivity extends AppCompatActivity {
                                                         name,
                                                         documentMenu.getData().get("menu_pic").toString(),
                                                         documentMenu.getData().get("menu_name").toString(),
-                                                        Double.parseDouble(documentMenu.getData().get("menu_price").toString())
+                                                        documentMenu.getData().get("menu_price").toString()
                                                     )
                                                 );
                                             }
 
-                                            RvMenuAdapter menuAdapter = new RvMenuAdapter(this, menu);
+                                            RvMenuAdapter menuAdapter = new RvMenuAdapter(this, username, menu);
                                             rvMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
                                             rvMenu.setAdapter(menuAdapter);
                                         }

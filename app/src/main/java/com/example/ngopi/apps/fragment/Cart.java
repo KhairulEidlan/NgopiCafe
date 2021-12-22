@@ -17,16 +17,16 @@ import com.example.ngopi.R;
 import com.example.ngopi.apps.AppPaymentActivity;
 import com.example.ngopi.apps.rv.RvCartAdapter;
 import com.example.ngopi.apps.rv.RvCartModel;
-import com.example.ngopi.object.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Cart extends Fragment {
+    String userId;
+    String orderId;
     final double  serviceCharge = 4.00;
     double subtotal;
     double total;
@@ -59,52 +59,76 @@ public class Cart extends Fragment {
     }
 
     public void displayCart(View view) {
+        Bundle bundle = this.getArguments();
+        String username = bundle.getString("username");
 
-        db.collection("Order")
-                .whereEqualTo("user_id","RbVFEeg2mNtZwElyllx1")
+        db.collection("Users")
+                .whereEqualTo("username",username)
                 .get()
-                .addOnCompleteListener(taskCart -> {
-                    if (taskCart.isSuccessful()){
-                        ArrayList<RvCartModel> item = new ArrayList<>();
-                        for (QueryDocumentSnapshot documentCart : taskCart.getResult()){
-
-                            db.collectionGroup("Menu")
+                .addOnCompleteListener(taskUser -> {
+                    if (taskUser.isSuccessful()) {
+                        for (QueryDocumentSnapshot documentUser : taskUser.getResult()) {
+                            db.collection("Order")
+                                    .whereEqualTo("userId",documentUser.getId())
+                                    .whereEqualTo("status","In Cart")
                                     .get()
-                                    .addOnCompleteListener(taskMenu -> {
-                                        if (taskMenu.isSuccessful()){
+                                    .addOnCompleteListener(taskOrder -> {
+                                        if (taskOrder.isSuccessful()) {
+                                            for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()) {
+                                                db.collection("Order")
+                                                    .document(documentOrder.getId())
+                                                    .collection("Order Details")
+                                                    .get()
+                                                    .addOnCompleteListener(taskOrderDetail -> {
+                                                        if (taskOrderDetail.isSuccessful()){
+                                                            ArrayList<RvCartModel> item = new ArrayList<>();
+                                                            for (QueryDocumentSnapshot documentOrderDetail : taskOrderDetail.getResult()){
+                                                                db.collectionGroup("Menu")
+                                                                        .get()
+                                                                        .addOnCompleteListener(taskMenu -> {
+                                                                            if (taskMenu.isSuccessful()){
+                                                                                for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
+                                                                                    if(documentMenu.getId().equals(documentOrderDetail.getData().get("menuId"))){
+                                                                                        item.add(new RvCartModel(
+                                                                                                        documentMenu.getId(),
+                                                                                                        documentMenu.getData().get("menu_pic").toString(),
+                                                                                                        documentMenu.getData().get("menu_name").toString(),
+                                                                                                        documentOrderDetail.getData().get("type").toString(),
+                                                                                                        Integer.parseInt(documentOrderDetail.getData().get("quantity").toString()),
+                                                                                                Double.parseDouble(documentOrderDetail.getData().get("price").toString())*Double.parseDouble(documentOrderDetail.getData().get("quantity").toString())
+                                                                                                )
+                                                                                        );
+                                                                                        subtotal += Double.parseDouble(documentOrderDetail.getData().get("price").toString())*Double.parseDouble(documentOrderDetail.getData().get("quantity").toString());
+                                                                                    }
+                                                                                }
+                                                                                recyclerView.setAdapter(new RvCartAdapter(getContext(),item, username));
+                                                                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
-                                            for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
-                                                if(documentMenu.getId().equals(documentCart.getData().get("menu_id"))){
-                                                    item.add(new RvCartModel(
-                                                                    documentMenu.getData().get("menu_pic").toString(),
-                                                                    documentMenu.getData().get("menu_name").toString(),
-                                                                    Double.parseDouble(documentMenu.getData().get("menu_price").toString())
-                                                            )
-                                                    );
-                                                    subtotal += Double.parseDouble(documentMenu.getData().get("menu_price").toString());
-                                                }
+                                                                                total = subtotal + serviceCharge;
+                                                                                costService.setText(String.format(Locale.getDefault(),"RM %.2f", serviceCharge));
+                                                                                costSubtotal.setText(String.format(Locale.getDefault(),"RM %.2f", subtotal));
+                                                                                costTotal.setText(String.format(Locale.getDefault(),"RM %.2f", total));
+
+                                                                                btnCheckout.setVisibility(View.VISIBLE);
+                                                                                btnCheckout.setOnClickListener(this::toPayment);
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }
+                                                    });
                                             }
-                                            recyclerView.setAdapter(new RvCartAdapter(getContext(),item));
-                                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
-
-                                            total = subtotal + serviceCharge;
-                                            costService.setText(String.format(Locale.getDefault(),"RM %.2f", serviceCharge));
-                                            costSubtotal.setText(String.format(Locale.getDefault(),"RM %.2f", subtotal));
-                                            costTotal.setText(String.format(Locale.getDefault(),"RM %.2f", total));
-
-                                            btnCheckout.setVisibility(View.VISIBLE);
-                                            btnCheckout.setOnClickListener(v -> {
-                                                Intent intent = new Intent(getContext(), AppPaymentActivity.class);
-                                                intent.putExtra("total",total);
-                                                startActivity(intent);
-                                            });
                                         }
                                     });
                         }
                     }
-                    costService.setText("RM 0.00");
-                    costSubtotal.setText("RM 0.00");
-                    costTotal.setText("RM 0.00");
                 });
+
+//
+    }
+
+    private void toPayment(View v) {
+        Intent intent = new Intent(getContext(), AppPaymentActivity.class);
+        intent.putExtra("total",total);
+        startActivity(intent);
     }
 }
