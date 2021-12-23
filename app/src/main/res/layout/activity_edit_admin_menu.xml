@@ -7,19 +7,6 @@
     android:background="@color/white"
     tools:context=".EditAdminMenu">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/ic_back"
-        android:onClick="back"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewImage"
         android:layout_width="130dp"

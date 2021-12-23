@@ -39,7 +39,7 @@ public class EditAdminMenu extends AppCompatActivity {
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     private StorageReference storage;
 
-    String itemname,name,categoryid,menuid;
+    String itemname,name,categoryid,menuid,url;
     int img;
     boolean check;
     EditText item_title, item_price;
@@ -74,26 +74,17 @@ public class EditAdminMenu extends AppCompatActivity {
                 openFileChooser();
             }
         });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back();
+            }
+        });
         display();
     }
-    private void openFileChooser(){
-        Intent photoPickerIntent = new Intent();
-        photoPickerIntent.setType("image/*");
-        photoPickerIntent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(photoPickerIntent, 1);
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-
-            Picasso.get().load(mImageUri).into(imgItem);
-        }
-    }
-
+    //display edit item selected
     public void display(){
         db.collection("Category")
                 .whereEqualTo("name",name)
@@ -126,13 +117,71 @@ public class EditAdminMenu extends AppCompatActivity {
                 });
     }
 
+    //confrimation to add edited item
     public void confirm(View view){
-        if (activebtn.isChecked()){
-            check = true;
-        }else {
-            check = false;
+        if (validateitemname() && validateitemprice()  == true)
+        {
+            if (activebtn.isChecked()){
+                check = true;
+            }
+            else {
+                check = false;
+            }
+            intodb();
         }
-        if (mImageUri != null) {
+        else{return;
+        }
+
+    }
+
+    //open gallery
+    private void openFileChooser(){
+        Intent photoPickerIntent = new Intent();
+        photoPickerIntent.setType("image/*");
+        photoPickerIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(photoPickerIntent, 1);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            Picasso.get().load(mImageUri).into(imgItem);
+        }
+    }
+
+    //validate item name and item price
+    public boolean validateitemname(){
+        String val = item_title.getText().toString();
+        if (val.isEmpty()){
+            item_title.setError("field cannot be empty");
+            return false;
+        }
+        else {
+            item_title.setError(null);
+            return true;
+        }
+    }
+    public boolean validateitemprice(){
+        String val = item_price.getText().toString();
+        if (val.isEmpty()){
+            item_price.setError("field cannot be empty");
+            return false;
+        }
+        else {
+            item_price.setError(null);
+            return true;
+        }
+    }
+
+
+
+    //insert edit item to db
+    public void intodb(){
+        if (mImageUri != null ) {
             StorageReference fileReference = storage.child(itemname + ".jpg");
 
             StorageTask mUploadTask = fileReference.putFile(mImageUri)
@@ -142,27 +191,37 @@ public class EditAdminMenu extends AppCompatActivity {
                             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
+                                    url = task.getResult().toString();
+                                    Toast.makeText(EditAdminMenu.this,url , Toast.LENGTH_SHORT).show();
                                     DocumentReference documentReference = db.collection("Category").document(categoryid).collection("Menu").document(menuid);
                                     documentReference
-                                            .update(
-                                                    "is_active", check,
+                                            .update("is_active", check,
                                                     "menu_name", item_title.getText().toString(),
                                                     "menu_price", item_price.getText().toString(),
-                                                    "menu_pic", task.getResult().toString()
+                                                    "menu_pic", url
                                             );
                                 }
                             });
                         }
                     });
+            back();
             Toast.makeText(EditAdminMenu.this,"Update Successful!" , Toast.LENGTH_SHORT).show();
 
-        } else {
-            Toast.makeText(EditAdminMenu.this,"Update UnSuccessful!" , Toast.LENGTH_SHORT).show();
         }
-
+        else{
+            DocumentReference documentReference = db.collection("Category").document(categoryid).collection("Menu").document(menuid);
+            documentReference
+                    .update(
+                            "is_active", check,
+                            "menu_name", item_title.getText().toString(),
+                            "menu_price", item_price.getText().toString()
+                    );
+            back();
+            Toast.makeText(EditAdminMenu.this,"Update Successful!" , Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void back(View view){
+    public void back(){
         Intent intent = new Intent(EditAdminMenu.this, AdminCategory.class);
         intent.putExtra("name",name);
         intent.putExtra("img",img);
