@@ -28,8 +28,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ngopi.AdminCategory;
+import com.example.ngopi.EditAdminMenu;
 import com.example.ngopi.R;
+import com.example.ngopi.admin.AdminDashboardActivity;
+import com.example.ngopi.apps.AppCategoryActivity;
+import com.example.ngopi.loginsignup.LoginActivity;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,12 +43,15 @@ import java.util.Locale;
 public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.RvAdminMenuHolder> {
     private Context context;
     private ArrayList<RvMenuModel> menuItem;
+    private String id;
 
     private View view;
 
-    public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem) {
+    public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem, String id) {
         this.context = context;
         this.menuItem = menuItem;
+        this.id = id;
+
     }
     @NonNull
     @Override
@@ -64,95 +72,19 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
         holder.btnedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(v, currentItem);
-//                Toast.makeText(v.getContext(), "Clicked Laugh Vote" + currentItem.getItemName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(v.getContext(), EditAdminMenu.class);
+                intent.putExtra("id",id);
+                intent.putExtra("itemname",currentItem.getItemName());
+                v.getContext().startActivity(intent);
             }
         });
 
 
-    }
-    private void openDialog(View v, RvMenuModel currentItem) {
-
-        Dialog menuDialog = new Dialog(v.getContext());
-        View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_admin_menu,null);
-
-        menuDialog.setContentView(dialogView);
-        menuDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(v.getContext(), R.drawable.dialog_background));
-        menuDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        menuDialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-
-        EditText item_title, item_price;
-        ImageView imageItemMenu;
-        SwitchCompat activebtn;
-        Button btnCancel,btnConfirm;
-        Uri mImageUri;
-        final int GET_FROM_GALLERY = 3;
-
-        item_title = dialogView.findViewById(R.id.item_title);
-        item_price = dialogView.findViewById(R.id.item_price);
-        imageItemMenu = dialogView.findViewById(R.id.imgItemMenu);
-
-        activebtn = dialogView.findViewById(R.id.activebtn);
-        btnCancel = dialogView.findViewById(R.id.btnCancel);
-        btnConfirm = dialogView.findViewById(R.id.btnConfirm);
-
-        item_title.setText(currentItem.getItemName());
-        item_price.setText(String.format(Locale.getDefault(),"%.2f", Double.parseDouble(currentItem.getItemPrice())));
-        Glide.with(context).load(currentItem.getItemImage()).into(imageItemMenu);
-
-//        if (currentItem.getitemActive() == true){
-//            activebtn.setChecked(true);
-//        }
-//        else{
-//            activebtn.setChecked(false);
-//        }
-
-        imageItemMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent photoPickerIntent = new Intent();
-//                photoPickerIntent.setType("image/*");
-//                photoPickerIntent.setAction(Intent.ACTION_GET_CONTENT);
-//
-//                context.startActivity(photoPickerIntent,1);
-////                startActivityForResult(photoPickerIntent, 1);
-            }
-
-
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menuDialog.dismiss();
-            }
-        });
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                currentItem.setItemName(item_title.getText().toString());
-//                if (activebtn.isChecked()){
-//                    currentItem.setItemActive(true);
-//                }
-//                else{
-//                    currentItem.setItemActive(false);
-//                }
-//                currentItem.setItemName(item_title.getText().toString());
-//                currentItem.setItemPrice(Double.parseDouble(item_price.getText().toString()));
-//                Toast.makeText(v.getContext(), "Clicked Laugh Vote  " + currentItem.getitemActive(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        menuDialog.setCancelable(true);
-        menuDialog.show();
     }
 
     @Override
     public int getItemCount() {
         return menuItem == null ? 0:menuItem.size();
-    }
-
-    private void toDatabase(RvMenuModel currentItem) {
-
     }
 
     public static class RvAdminMenuHolder extends RecyclerView.ViewHolder{

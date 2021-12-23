@@ -93,6 +93,7 @@ public class Profile extends Fragment {
         email_pro.setEnabled(false);
         phonenum_pro.setEnabled(false);
         password_pro.setEnabled(false);
+
         profilepage();
 
         profile_pic.setOnClickListener(new View.OnClickListener() {

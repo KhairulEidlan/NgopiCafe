@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class AdminCategory extends AppCompatActivity {
-    private String name;
+    private String name, id;
     private int img;
     private RecyclerView menuitem;
 
@@ -42,13 +42,13 @@ public class AdminCategory extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         img = getIntent().getIntExtra("img",0);
 
+
         category = findViewById(R.id.category);
         bgimg = findViewById(R.id.bgimg);
         menuitem = findViewById(R.id.menuitem);
 
         category.setText(name);
         bgimg.setBackgroundResource(img);
-//        Toast.makeText(AdminCategory.this, name,Toast.LENGTH_SHORT).show();
 
         recyclerview();
 
@@ -65,6 +65,8 @@ public class AdminCategory extends AppCompatActivity {
                 .addOnCompleteListener(taskCategory -> {
                     if (taskCategory.isSuccessful()){
                         for (QueryDocumentSnapshot documentCategory : taskCategory.getResult()){
+
+                            id=documentCategory.getData().get("name").toString();
                             documentCategory.getReference().collection("Menu")
                                     .get()
                                     .addOnCompleteListener(taskMenu -> {
@@ -82,7 +84,7 @@ public class AdminCategory extends AppCompatActivity {
                                                 );
                                             }
 
-                                            RvAdminMenuAdapter adminmenuAdapter = new RvAdminMenuAdapter(this, menu);
+                                            RvAdminMenuAdapter adminmenuAdapter = new RvAdminMenuAdapter(this, menu,id);
                                             menuitem.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
                                             menuitem.setAdapter(adminmenuAdapter);
                                         }
@@ -91,6 +93,8 @@ public class AdminCategory extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
 
