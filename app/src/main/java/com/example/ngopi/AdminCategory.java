@@ -84,7 +84,7 @@ public class AdminCategory extends AppCompatActivity {
                                                 );
                                             }
 
-                                            RvAdminMenuAdapter adminmenuAdapter = new RvAdminMenuAdapter(this, menu,id);
+                                            RvAdminMenuAdapter adminmenuAdapter = new RvAdminMenuAdapter(this, menu,name,img);
                                             menuitem.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
                                             menuitem.setAdapter(adminmenuAdapter);
                                         }

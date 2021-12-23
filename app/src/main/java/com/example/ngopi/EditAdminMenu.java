@@ -39,7 +39,8 @@ public class EditAdminMenu extends AppCompatActivity {
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
     private StorageReference storage;
 
-    String itemname,itemprice, itemimg,id,categoryid,menuid;
+    String itemname,name,categoryid,menuid;
+    int img;
     boolean check;
     EditText item_title, item_price;
     ImageView imgItem;
@@ -47,19 +48,17 @@ public class EditAdminMenu extends AppCompatActivity {
     Button btnCancel,btnConfirm;
 
     private Uri mImageUri;
-    private StorageTask mUploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_admin_menu);
 
-        id = getIntent().getStringExtra("id");
+        name = getIntent().getStringExtra("name");
         itemname = getIntent().getStringExtra("itemname");
+        img = getIntent().getIntExtra("img",0);
 
-
-
-        storage = FirebaseStorage.getInstance().getReference(id +"/");
+        storage = FirebaseStorage.getInstance().getReference(name +"/");
 
         item_title = findViewById(R.id.item_title);
         item_price = findViewById(R.id.item_price);
@@ -97,7 +96,7 @@ public class EditAdminMenu extends AppCompatActivity {
 
     public void display(){
         db.collection("Category")
-                .whereEqualTo("name",id)
+                .whereEqualTo("name",name)
                 .get()
                 .addOnCompleteListener(taskCategory -> {
                     if (taskCategory.isSuccessful()){
@@ -136,7 +135,7 @@ public class EditAdminMenu extends AppCompatActivity {
         if (mImageUri != null) {
             StorageReference fileReference = storage.child(itemname + ".jpg");
 
-            mUploadTask = fileReference.putFile(mImageUri)
+            StorageTask mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -146,10 +145,10 @@ public class EditAdminMenu extends AppCompatActivity {
                                     DocumentReference documentReference = db.collection("Category").document(categoryid).collection("Menu").document(menuid);
                                     documentReference
                                             .update(
-                                                    "is_active",check,
-                                                    "menu_name",item_title.getText().toString(),
-                                                    "menu_price",item_price.getText().toString(),
-                                                    "menu_pic",task.getResult().toString()
+                                                    "is_active", check,
+                                                    "menu_name", item_title.getText().toString(),
+                                                    "menu_price", item_price.getText().toString(),
+                                                    "menu_pic", task.getResult().toString()
                                             );
                                 }
                             });
@@ -165,6 +164,8 @@ public class EditAdminMenu extends AppCompatActivity {
 
     public void back(View view){
         Intent intent = new Intent(EditAdminMenu.this, AdminCategory.class);
+        intent.putExtra("name",name);
+        intent.putExtra("img",img);
         startActivity(intent);
 
     }

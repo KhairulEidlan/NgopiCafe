@@ -43,14 +43,16 @@ import java.util.Locale;
 public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.RvAdminMenuHolder> {
     private Context context;
     private ArrayList<RvMenuModel> menuItem;
-    private String id;
+    private String name;
+    private int img;
 
     private View view;
 
-    public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem, String id) {
+    public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem, String name, int img) {
         this.context = context;
         this.menuItem = menuItem;
-        this.id = id;
+        this.name = name;
+        this.img = img;
 
     }
     @NonNull
@@ -73,7 +75,8 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EditAdminMenu.class);
-                intent.putExtra("id",id);
+                intent.putExtra("name",name);
+                intent.putExtra("img",img);
                 intent.putExtra("itemname",currentItem.getItemName());
                 v.getContext().startActivity(intent);
             }
