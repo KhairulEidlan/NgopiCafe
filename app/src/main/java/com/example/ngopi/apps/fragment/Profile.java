@@ -2,6 +2,7 @@ package com.example.ngopi.apps.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +44,7 @@ import com.squareup.picasso.Picasso;
 public class Profile extends Fragment {
 
     private EditText fullname_pro,username_pro,email_pro,phonenum_pro,password_pro;
-    TextView edit,save,orderhistory;
+    TextView edit,save,orderhistory,cancel;
     ImageView logout, profile_pic,add_profile;
     LinearLayout layout_addpic;
     String uid;
@@ -66,6 +68,7 @@ public class Profile extends Fragment {
 
         edit = view.findViewById(R.id.edit);
         save = view.findViewById(R.id.save);
+        cancel = view.findViewById(R.id.cancel);
         orderhistory = view.findViewById(R.id.orderhistory);
         layout_addpic = view.findViewById(R.id.layout_addpic);
 
@@ -114,6 +117,7 @@ public class Profile extends Fragment {
                 edit.setVisibility(View.INVISIBLE);
                 orderhistory.setVisibility(View.INVISIBLE);
                 save.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.VISIBLE);
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
@@ -124,11 +128,29 @@ public class Profile extends Fragment {
                     layout_addpic.setVisibility(View.INVISIBLE);
                     edit.setVisibility(View.VISIBLE);
                     save.setVisibility(View.INVISIBLE);
+                    cancel.setVisibility(View.INVISIBLE);
                     orderhistory.setVisibility(View.VISIBLE);
                     save();
                 }
                 else{return;
                 }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layout_addpic.setVisibility(View.INVISIBLE);
+                edit.setVisibility(View.VISIBLE);
+                save.setVisibility(View.INVISIBLE);
+                cancel.setVisibility(View.INVISIBLE);
+                orderhistory.setVisibility(View.VISIBLE);
+                fullname_pro.setEnabled(false);
+                username_pro.setEnabled(false);
+                email_pro.setEnabled(false);
+                phonenum_pro.setEnabled(false);
+                password_pro.setEnabled(false);
+                profilepage();
+
             }
         });
 
@@ -150,6 +172,7 @@ public class Profile extends Fragment {
 
         return view;
     }
+
     private void openFileChooser(){
         Intent photoPickerIntent = new Intent();
         photoPickerIntent.setType("image/*");
