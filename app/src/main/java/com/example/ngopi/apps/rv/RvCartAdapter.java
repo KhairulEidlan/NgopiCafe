@@ -46,6 +46,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
     String userId;
 
     private View view;
+    private ViewGroup viewParent;
     private Dialog cartDialog;
 
     private FirebaseFirestore db;
@@ -75,7 +76,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
                     }
                 });
 
-
+        viewParent = parent;
         cartDialog = new Dialog(view.getContext());
 
         return new RvCartHolder(view);
@@ -113,19 +114,9 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
         btnAll = view.findViewById(R.id.btnAll);
         btnOne = view.findViewById(R.id.btnOne);
 
-        btnAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toDatabase(currentItem,"all");
-            }
-        });
+        btnAll.setOnClickListener(v -> toDatabase(currentItem,"all"));
 
-        btnOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toDatabase(currentItem,"one");
-            }
-        });
+        btnOne.setOnClickListener(v -> toDatabase(currentItem,"one"));
 
         cartDialog.setCancelable(true);
         cartDialog.show();
@@ -201,6 +192,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
                         System.out.println("Error: "+ taskOrder.getException());
                     }
                 });
+
 
     }
 

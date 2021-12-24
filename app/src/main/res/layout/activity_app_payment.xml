@@ -29,32 +29,22 @@
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="#F5E4CC"
-                android:drawableLeft="@drawable/ic_cart"
-                android:drawableTint="#704030"
-                android:text="View Order Summary"
-                android:textColor="@color/black"
-                android:textAllCaps="false"
-                app:cornerRadius="60dp" />
-
             <TextView
                 android:id="@+id/lblTotal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_centerInParent="true"
                 android:text="Total: "
+                android:textSize="20sp"
+                android:textAlignment="center"
                 android:textColor="@color/black" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </com.google.android.material.card.MaterialCardView>

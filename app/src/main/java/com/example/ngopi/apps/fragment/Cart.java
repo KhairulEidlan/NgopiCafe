@@ -25,8 +25,7 @@ import java.util.Locale;
 
 
 public class Cart extends Fragment {
-    String userId;
-    String orderId;
+    String username;
     final double  serviceCharge = 4.00;
     double subtotal;
     double total;
@@ -44,6 +43,9 @@ public class Cart extends Fragment {
 
         recyclerView = view.findViewById(R.id.rcview);
 
+        Bundle bundle = this.getArguments();
+        username = bundle.getString("username");
+
         db = FirebaseFirestore.getInstance();
 
         costService = view.findViewById(R.id.cost_service);
@@ -59,8 +61,6 @@ public class Cart extends Fragment {
     }
 
     public void displayCart(View view) {
-        Bundle bundle = this.getArguments();
-        String username = bundle.getString("username");
 
         db.collection("Users")
                 .whereEqualTo("username",username)
@@ -123,11 +123,11 @@ public class Cart extends Fragment {
                     }
                 });
 
-//
     }
 
     private void toPayment(View v) {
         Intent intent = new Intent(getContext(), AppPaymentActivity.class);
+        intent.putExtra("username",username);
         intent.putExtra("total",total);
         startActivity(intent);
     }

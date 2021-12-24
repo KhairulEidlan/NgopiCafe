@@ -20,9 +20,6 @@ import com.bumptech.glide.Glide;
 import com.example.ngopi.R;
 import com.example.ngopi.apps.model.Order;
 import com.example.ngopi.apps.model.OrderDetail;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
 
 public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHolder> {
     private final Context context;
@@ -193,13 +188,14 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
                         if (documentOrder.isEmpty()){
                             CollectionReference dbOrder = db.collection("Order");
 
-                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
                             LocalDateTime now = LocalDateTime.now();
 
                             Order order = new Order(
                                     userId,
                                     "",
                                     dtf.format(now),
+                                    "",
                                     "In Cart"
                             );
 

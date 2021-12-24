@@ -1,17 +1,17 @@
 package com.example.ngopi.apps.model;
 
-import com.google.type.DateTime;
-
 public class Order {
     private String userId;
     private String amount;
     private String orderDate;
+    private String orderPickUp;
     private String status;
 
-    public Order(String userId, String amount, String orderDate, String status) {
+    public Order(String userId, String amount, String orderDate, String orderPickUp, String status) {
         this.userId = userId;
         this.amount = amount;
         this.orderDate = orderDate;
+        this.orderPickUp = orderPickUp;
         this.status = status;
     }
 
@@ -37,6 +37,14 @@ public class Order {
 
     public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public String getOrderPickUp() {
+        return orderPickUp;
+    }
+
+    public void setOrderPickUp(String orderPickUp) {
+        this.orderPickUp = orderPickUp;
     }
 
     public String getStatus() {
