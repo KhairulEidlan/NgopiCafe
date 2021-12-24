@@ -15,16 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ngopi.R;
 import com.example.ngopi.apps.AppCategoryActivity;
+import com.example.ngopi.apps.model.RvCat;
 
 import java.util.ArrayList;
 
 public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder> {
     private Context context;
     private String username;
-    private final ArrayList<RvCatModel> category;
+    private final ArrayList<RvCat> category;
     int row_index = -1;
 
-    public RvCatAdapter(Context context, String username, ArrayList<RvCatModel> category) {
+    public RvCatAdapter(Context context, String username, ArrayList<RvCat> category) {
         this.context = context;
         this.username = username;
         this.category = category;
@@ -39,7 +40,7 @@ public class RvCatAdapter extends RecyclerView.Adapter<RvCatAdapter.RvCatHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RvCatHolder holder, @SuppressLint("RecyclerView") int position) {
-        RvCatModel currentCat = category.get(position);
+        RvCat currentCat = category.get(position);
         holder.imageView.setImageResource(currentCat.getImage());
         holder.textView.setText(currentCat.getText());
 

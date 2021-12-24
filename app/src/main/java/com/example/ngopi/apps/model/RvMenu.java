@@ -1,6 +1,6 @@
-package com.example.ngopi.apps.rv;
+package com.example.ngopi.apps.model;
 
-public class RvMenuModel {
+public class RvMenu {
     private String itemId;
     private String itemCategory;
     private String itemImage;
@@ -8,7 +8,7 @@ public class RvMenuModel {
     private String itemPrice;
     private boolean itemactive;
 
-    public RvMenuModel(String itemId, String itemCategory, String itemImage, String itemName, String itemPrice) {
+    public RvMenu(String itemId, String itemCategory, String itemImage, String itemName, String itemPrice) {
         this.itemId = itemId;
         this.itemCategory = itemCategory;
         this.itemImage = itemImage;

@@ -1,4 +1,4 @@
-package com.example.ngopi;
+package com.example.ngopi.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ngopi.admin.AdminDashboardActivity;
-import com.example.ngopi.apps.rv.RvAdminMenuAdapter;
-import com.example.ngopi.apps.rv.RvMenuAdapter;
-import com.example.ngopi.apps.rv.RvMenuModel;
+import com.example.ngopi.R;
+import com.example.ngopi.admin.rv.RvAdminMenuAdapter;
+import com.example.ngopi.apps.model.RvMenu;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -72,9 +70,9 @@ public class AdminCategory extends AppCompatActivity {
                                     .addOnCompleteListener(taskMenu -> {
                                         if (taskMenu.isSuccessful()){
 
-                                            ArrayList<RvMenuModel> menu = new ArrayList<>();
+                                            ArrayList<RvMenu> menu = new ArrayList<>();
                                             for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
-                                                menu.add(new RvMenuModel(
+                                                menu.add(new RvMenu(
                                                                 documentMenu.getId(),
                                                                 name,
                                                                 documentMenu.getData().get("menu_pic").toString(),

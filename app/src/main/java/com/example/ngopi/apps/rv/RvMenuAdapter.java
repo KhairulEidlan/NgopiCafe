@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.ngopi.R;
 import com.example.ngopi.apps.model.Order;
 import com.example.ngopi.apps.model.OrderDetail;
+import com.example.ngopi.apps.model.RvMenu;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,7 +35,7 @@ import java.util.Map;
 
 public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHolder> {
     private final Context context;
-    private final ArrayList<RvMenuModel> menuItem;
+    private final ArrayList<RvMenu> menuItem;
     private final String username;
 
     String userId;
@@ -48,7 +49,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
     String type = null;
     private double amount = 0;
 
-    public RvMenuAdapter(Context context, String username, ArrayList<RvMenuModel> menuItem) {
+    public RvMenuAdapter(Context context, String username, ArrayList<RvMenu> menuItem) {
         this.context = context;
         this.username = username;
         this.menuItem = menuItem;
@@ -78,7 +79,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
 
     @Override
     public void onBindViewHolder(@NonNull RvMenuHolder holder, int position) {
-        RvMenuModel currentItem = menuItem.get(position);
+        RvMenu currentItem = menuItem.get(position);
 
         Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.txtTitle.setText(currentItem.getItemName());
@@ -105,7 +106,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
         return menuItem == null ? 0:menuItem.size();
     }
 
-    private void openDialog(RvMenuModel currentItem) {
+    private void openDialog(RvMenu currentItem) {
 
         view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_menu,null);
 
@@ -177,7 +178,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
         menuDialog.show();
     }
 
-    private void toDatabase(RvMenuModel currentItem, String typeMenu, double amountMenu) {
+    private void toDatabase(RvMenu currentItem, String typeMenu, double amountMenu) {
         db.collection("Order")
                 .whereEqualTo("userId",userId)
                 .whereEqualTo("status","In Cart")

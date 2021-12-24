@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvMenuAdapter;
-import com.example.ngopi.apps.rv.RvMenuModel;
+import com.example.ngopi.apps.model.RvMenu;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -71,9 +71,9 @@ public class AppCategoryActivity extends AppCompatActivity {
                                     .addOnCompleteListener(taskMenu -> {
                                         if (taskMenu.isSuccessful()){
 
-                                            ArrayList<RvMenuModel> menu = new ArrayList<>();
+                                            ArrayList<RvMenu> menu = new ArrayList<>();
                                             for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
-                                                menu.add(new RvMenuModel(
+                                                menu.add(new RvMenu(
                                                         documentMenu.getId(),
                                                         name,
                                                         documentMenu.getData().get("menu_pic").toString(),

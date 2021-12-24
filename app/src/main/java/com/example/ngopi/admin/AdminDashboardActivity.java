@@ -5,14 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ngopi.AdminCategory;
-import com.example.ngopi.MainActivity;
 import com.example.ngopi.R;
-import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.loginsignup.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

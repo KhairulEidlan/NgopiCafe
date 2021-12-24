@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.ngopi.R;
 import com.example.ngopi.apps.AppPaymentActivity;
 import com.example.ngopi.apps.rv.RvCartAdapter;
-import com.example.ngopi.apps.rv.RvCartModel;
+import com.example.ngopi.apps.model.RvCart;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -81,7 +81,7 @@ public class Cart extends Fragment {
                                                     .get()
                                                     .addOnCompleteListener(taskOrderDetail -> {
                                                         if (taskOrderDetail.isSuccessful()){
-                                                            ArrayList<RvCartModel> item = new ArrayList<>();
+                                                            ArrayList<RvCart> item = new ArrayList<>();
                                                             for (QueryDocumentSnapshot documentOrderDetail : taskOrderDetail.getResult()){
                                                                 db.collectionGroup("Menu")
                                                                         .get()
@@ -89,7 +89,7 @@ public class Cart extends Fragment {
                                                                             if (taskMenu.isSuccessful()){
                                                                                 for (QueryDocumentSnapshot documentMenu : taskMenu.getResult()){
                                                                                     if(documentMenu.getId().equals(documentOrderDetail.getData().get("menuId"))){
-                                                                                        item.add(new RvCartModel(
+                                                                                        item.add(new RvCart(
                                                                                                         documentMenu.getId(),
                                                                                                         documentMenu.getData().get("menu_pic").toString(),
                                                                                                         documentMenu.getData().get("menu_name").toString(),

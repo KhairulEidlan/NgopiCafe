@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NgopiCafe">
         <activity
-            android:name=".EditAdminMenu"
+            android:name=".admin.EditAdminMenu"
             android:exported="true" />
         <activity
-            android:name=".AdminCategory"
+            android:name=".admin.AdminCategory"
             android:exported="true" />
         <activity
-            android:name=".OrderHistory"
+            android:name=".apps.AppOrderHistoryActivity"
             android:exported="true" />
         <activity
             android:name=".apps.AppPaymentActivity"

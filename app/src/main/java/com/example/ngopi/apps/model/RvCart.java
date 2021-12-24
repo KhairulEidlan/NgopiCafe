@@ -1,11 +1,11 @@
-package com.example.ngopi.apps.rv;
+package com.example.ngopi.apps.model;
 
-public class RvCartModel {
+public class RvCart {
     private String itemId,itemName,itemImage, itemType;
     private int itemQty;
     private double itemPrice;
 
-    public RvCartModel(String itemId, String itemImage, String itemName, String itemType, int itemQty, double itemPrice) {
+    public RvCart(String itemId, String itemImage, String itemName, String itemType, int itemQty, double itemPrice) {
         this.itemId = itemId;
         this.itemImage = itemImage;
         this.itemName = itemName;

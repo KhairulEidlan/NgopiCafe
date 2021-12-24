@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvCatAdapter;
-import com.example.ngopi.apps.rv.RvCatModel;
+import com.example.ngopi.apps.model.RvCat;
 
 import java.util.ArrayList;
 
@@ -31,12 +31,12 @@ public class Home extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
         // Item
-        ArrayList<RvCatModel> item = new ArrayList<>();
-        item.add(new RvCatModel(R.mipmap.coffee_foreground,"Coffee"));
-        item.add(new RvCatModel(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
-        item.add(new RvCatModel(R.mipmap.boba_foreground,"Smoothies"));
-        item.add(new RvCatModel(R.mipmap.ice_cream_foreground,"Dessert"));
-        item.add(new RvCatModel(R.mipmap.can_foreground,"Beverage"));
+        ArrayList<RvCat> item = new ArrayList<>();
+        item.add(new RvCat(R.mipmap.coffee_foreground,"Coffee"));
+        item.add(new RvCat(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
+        item.add(new RvCat(R.mipmap.boba_foreground,"Smoothies"));
+        item.add(new RvCat(R.mipmap.ice_cream_foreground,"Dessert"));
+        item.add(new RvCat(R.mipmap.can_foreground,"Beverage"));
 
         recyclerView.setAdapter(new RvCatAdapter(getContext(),username, item));
 

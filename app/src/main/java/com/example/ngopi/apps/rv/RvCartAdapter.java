@@ -12,46 +12,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ngopi.R;
-import com.example.ngopi.apps.fragment.Cart;
-import com.example.ngopi.apps.model.Order;
-import com.example.ngopi.apps.model.OrderDetail;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.ngopi.apps.model.RvCart;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHolder> {
     private final Context context;
-    private final ArrayList<RvCartModel> cartItem;
+    private final ArrayList<RvCart> cartItem;
     private final String username;
 
     String userId;
 
     private View view;
-    private ViewGroup viewParent;
     private Dialog cartDialog;
 
     private FirebaseFirestore db;
 
-    public RvCartAdapter(Context context, ArrayList<RvCartModel> cartItem, String username) {
+    public RvCartAdapter(Context context, ArrayList<RvCart> cartItem, String username) {
         this.context = context;
         this.cartItem = cartItem;
         this.username = username;
@@ -61,8 +48,6 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
     @Override
     public RvCartHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_cart,parent,false);
-
-        RvCartHolder refresh = new RvCartHolder(view);
 
         db = FirebaseFirestore.getInstance();
         db.collection("Users")
@@ -76,7 +61,6 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
                     }
                 });
 
-        viewParent = parent;
         cartDialog = new Dialog(view.getContext());
 
         return new RvCartHolder(view);
@@ -84,16 +68,14 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
 
     @Override
     public void onBindViewHolder(@NonNull RvCartHolder holder, int position) {
-        RvCartModel currentItem = cartItem.get(position);
+        RvCart currentItem = cartItem.get(position);
 
         Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.txtTitle.setText(currentItem.getItemName()+" (x"+currentItem.getItemQty()+")");
         holder.txtType.setText(currentItem.getItemType());
         holder.txtPrice.setText(String.format(Locale.getDefault(),"RM %.2f", currentItem.getItemPrice()));
 
-        holder.btnRemove.setOnClickListener(v -> {
-            openDialog(currentItem);
-        });
+        holder.btnRemove.setOnClickListener(v -> openDialog(currentItem));
     }
 
     @Override
@@ -101,7 +83,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
         return cartItem == null ? 0:cartItem.size();
     }
 
-    private void openDialog(RvCartModel currentItem) {
+    private void openDialog(RvCart currentItem) {
         view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_cart,null);
 
         cartDialog.setContentView(view);
@@ -122,7 +104,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
         cartDialog.show();
     }
 
-    private void toDatabase(RvCartModel currentItem, String type) {
+    private void toDatabase(RvCart currentItem, String type) {
 
         db.collection("Order")
                 .whereEqualTo("userId",userId)
@@ -159,12 +141,9 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
                                                                 .collection("Order Details")
                                                                 .document(documentMenuItem.getId())
                                                                 .delete()
-                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void unused) {
-                                                                        Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
-                                                                        cartDialog.cancel();
-                                                                    }
+                                                                .addOnSuccessListener(unused -> {
+                                                                    Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
+                                                                    cartDialog.cancel();
                                                                 });
                                                     }
                                                 } else if(type.equals("all")){
@@ -173,12 +152,9 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
                                                             .collection("Order Details")
                                                             .document(documentMenuItem.getId())
                                                             .delete()
-                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void unused) {
-                                                                    Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
-                                                                    cartDialog.cancel();
-                                                                }
+                                                            .addOnSuccessListener(unused -> {
+                                                                Toast.makeText(view.getContext(), "Successfully delete item from your order", Toast.LENGTH_SHORT).show();
+                                                                cartDialog.cancel();
                                                             });
                                                 }
                                             }

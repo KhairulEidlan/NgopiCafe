@@ -1,54 +1,33 @@
-package com.example.ngopi.apps.rv;
+package com.example.ngopi.admin.rv;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.ngopi.AdminCategory;
-import com.example.ngopi.EditAdminMenu;
+import com.example.ngopi.admin.EditAdminMenu;
 import com.example.ngopi.R;
-import com.example.ngopi.admin.AdminDashboardActivity;
-import com.example.ngopi.apps.AppCategoryActivity;
-import com.example.ngopi.loginsignup.LoginActivity;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
+import com.example.ngopi.apps.model.RvMenu;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.RvAdminMenuHolder> {
     private Context context;
-    private ArrayList<RvMenuModel> menuItem;
+    private ArrayList<RvMenu> menuItem;
     private String name;
     private int img;
 
     private View view;
 
-    public RvAdminMenuAdapter(Context context, ArrayList<RvMenuModel> menuItem, String name, int img) {
+    public RvAdminMenuAdapter(Context context, ArrayList<RvMenu> menuItem, String name, int img) {
         this.context = context;
         this.menuItem = menuItem;
         this.name = name;
@@ -65,7 +44,7 @@ public class RvAdminMenuAdapter extends RecyclerView.Adapter<RvAdminMenuAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RvAdminMenuAdapter.RvAdminMenuHolder holder, int position) {
-        RvMenuModel currentItem = menuItem.get(position);
+        RvMenu currentItem = menuItem.get(position);
 
         Glide.with(context).load(currentItem.getItemImage()).into(holder.imageView);
         holder.Title.setText(currentItem.getItemName());

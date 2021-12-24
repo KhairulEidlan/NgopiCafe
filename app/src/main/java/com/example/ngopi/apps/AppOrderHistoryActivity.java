@@ -1,10 +1,12 @@
-package com.example.ngopi;
+package com.example.ngopi.apps;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class OrderHistory extends AppCompatActivity {
+import com.example.ngopi.R;
+
+public class AppOrderHistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
