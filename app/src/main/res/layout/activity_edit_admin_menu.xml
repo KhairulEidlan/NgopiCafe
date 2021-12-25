@@ -20,12 +20,17 @@
         android:elevation="15dp"
         app:cardCornerRadius="40dp">
 
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
+
         <ImageView
             android:id="@+id/imgItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
-
 
     </androidx.cardview.widget.CardView>
 

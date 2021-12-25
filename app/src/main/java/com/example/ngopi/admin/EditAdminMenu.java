@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ngopi.R;
@@ -39,6 +40,7 @@ public class EditAdminMenu extends AppCompatActivity {
     SwitchCompat activebtn;
     Button btnCancel,btnConfirm;
 
+    private ProgressBar progressBar;
     private Uri mImageUri;
 
     @Override
@@ -59,6 +61,7 @@ public class EditAdminMenu extends AppCompatActivity {
         activebtn = findViewById(R.id.activebtn);
         btnCancel = findViewById(R.id.btnCancel);
         btnConfirm = findViewById(R.id.btnConfirm);
+        progressBar = findViewById(R.id.progress_bar);
 
         imgItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,8 +172,6 @@ public class EditAdminMenu extends AppCompatActivity {
         }
     }
 
-
-
     //insert edit item to db
     public void intodb(){
         if (mImageUri != null ) {
@@ -218,6 +219,5 @@ public class EditAdminMenu extends AppCompatActivity {
         intent.putExtra("name",name);
         intent.putExtra("img",img);
         startActivity(intent);
-
     }
 }

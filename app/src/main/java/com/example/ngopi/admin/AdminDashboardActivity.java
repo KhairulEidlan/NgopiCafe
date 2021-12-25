@@ -57,4 +57,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
         intent.putExtra("img",R.drawable.bg_drinks);
         startActivity(intent);
     }
+
+    public void onBackPressed() {
+    }
 }

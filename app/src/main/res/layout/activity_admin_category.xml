@@ -55,12 +55,38 @@
         android:background="@drawable/round_corner"
         android:orientation="vertical">
 
+
+        <TextView
+            android:id="@+id/additem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="28dp"
+            android:fontFamily="@font/muli_bold"
+            android:text="Add New Item"
+            android:textSize="20sp"
+            android:onClick="additem"/>
+
+        <ProgressBar
+
+            android:id="@+id/progress_bar"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/additem"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="121dp"
+            android:layout_marginEnd="118dp"
+            android:layout_marginBottom="0dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/menuitem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="30dp" />
+            android:layout_below="@+id/additem"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp" />
 
     </RelativeLayout>
 
