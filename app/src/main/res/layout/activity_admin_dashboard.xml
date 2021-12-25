@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:background="@drawable/bg_profile"
+        android:onClick="Request"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:layout_editor_absoluteX="0dp">
@@ -69,9 +70,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="You have 1 account registration request."
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
