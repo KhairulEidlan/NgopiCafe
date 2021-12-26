@@ -189,10 +189,11 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
                         if (documentOrder.isEmpty()){
                             CollectionReference dbOrder = db.collection("Order");
 
-                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                             LocalDateTime now = LocalDateTime.now();
 
                             Order order = new Order(
+                                    "",
                                     userId,
                                     "",
                                     dtf.format(now),

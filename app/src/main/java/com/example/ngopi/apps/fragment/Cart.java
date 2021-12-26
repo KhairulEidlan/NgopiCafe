@@ -3,6 +3,7 @@ package com.example.ngopi.apps.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,15 +18,23 @@ import com.example.ngopi.R;
 import com.example.ngopi.apps.AppPaymentActivity;
 import com.example.ngopi.apps.rv.RvCartAdapter;
 import com.example.ngopi.apps.model.RvCart;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
 
 public class Cart extends Fragment {
     String username;
+    String orderNo;
     final double  serviceCharge = 4.00;
     double subtotal;
     double total;
@@ -126,9 +135,39 @@ public class Cart extends Fragment {
     }
 
     private void toPayment(View v) {
-        Intent intent = new Intent(getContext(), AppPaymentActivity.class);
-        intent.putExtra("username",username);
-        intent.putExtra("total",total);
-        startActivity(intent);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("Asia/Kuala_Lumpur"));
+
+        db.collection("Order")
+                .whereEqualTo("status","Payed")
+                .whereEqualTo("orderDate",dtf.format(now))
+                .get()
+                .addOnCompleteListener(taskOrder -> {
+                    if (taskOrder.isSuccessful()){
+                        Intent intent = new Intent(getContext(), AppPaymentActivity.class);
+                        if (taskOrder.getResult().isEmpty()){
+                            orderNo = "001";
+                        } else {
+                            int counter = 1;
+                            for (QueryDocumentSnapshot ignored : taskOrder.getResult()){
+                                counter++;
+                            }
+
+                            if (counter < 10){
+                                orderNo = "00"+ counter;
+                            } else if (counter < 100){
+                                orderNo = "0"+ counter;
+                            } else if(counter < 1000){
+                                orderNo = String.valueOf(counter);
+                            }
+                        }
+                        intent.putExtra("username",username);
+                        intent.putExtra("total",total);
+                        intent.putExtra("orderNo",orderNo);
+                        startActivity(intent);
+                    }
+                });
+
     }
 }

@@ -30,6 +30,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,17 +39,16 @@ import java.util.Locale;
 import java.util.Map;
 
 public class AppPaymentActivity extends AppCompatActivity {
-    String username;
+    String username, orderNo;
     double totalCheckout;
 
     private FirebaseFirestore db;
 
-    TextView lblTotal;
+    TextView lblTotal, lblOrderNo;
     EditText txtTime;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
     int currentHour,currentMinute,tHour,tMinute;
-    private final static int TIME_PICKER_INTERVAL = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +60,15 @@ public class AppPaymentActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("username");
         totalCheckout = getIntent().getDoubleExtra("total",0);
+        orderNo = getIntent().getStringExtra("orderNo");
 
         db = FirebaseFirestore.getInstance();
 
         lblTotal = findViewById(R.id.lblTotal);
         lblTotal.append(String.format(Locale.getDefault(),"RM %.2f", totalCheckout));
+
+        lblOrderNo = findViewById(R.id.lblOrderNo);
+        lblOrderNo.append(orderNo);
 
         txtTime = findViewById(R.id.txtTimePicker);
         txtTime.setOnClickListener(v -> {
@@ -127,9 +132,14 @@ public class AppPaymentActivity extends AppCompatActivity {
                                                         System.out.println("Order ID: "+documentOrder.getId());
                                                         DocumentReference dbOrder = db.collection("Order").document(documentOrder.getId());
 
+                                                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                                                        LocalDateTime now = LocalDateTime.now();
+
                                                         Map<String, Object> updateOrder = new HashMap<>();
+                                                        updateOrder.put("orderNo", orderNo);
                                                         updateOrder.put("amount", String.format(Locale.getDefault(),"%.2f", totalCheckout));
                                                         updateOrder.put("orderPickUp", txtTime.getText().toString());
+                                                        updateOrder.put("orderDate", dtf.format(now));
                                                         updateOrder.put("status","Payed");
 
                                                         dbOrder.update(updateOrder).addOnSuccessListener(unused -> {
