@@ -65,9 +65,9 @@
             android:layout_marginTop="33dp"
             android:layout_marginEnd="28dp"
             android:fontFamily="@font/muli_bold"
+            android:onClick="additem"
             android:text="Add New Item"
-            android:textSize="20sp"
-            android:onClick="additem"/>
+            android:textSize="20sp" />
 
         <ProgressBar
 

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NgopiCafe">
         <activity
+            android:name=".AppSearchActivity"
+            android:exported="true" />
+        <activity
             android:name=".admin.EditAdminMenu"
             android:exported="true" />
         <activity

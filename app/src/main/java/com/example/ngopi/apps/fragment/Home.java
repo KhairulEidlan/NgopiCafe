@@ -1,24 +1,32 @@
 package com.example.ngopi.apps.fragment;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ngopi.AppSearchActivity;
 import com.example.ngopi.R;
+import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.apps.model.Order;
 import com.example.ngopi.apps.model.OrderDetail;
 import com.example.ngopi.apps.rv.RvCategoryAdapter;
@@ -38,8 +46,11 @@ import java.util.Map;
 
 public class Home extends Fragment {
 
+    //firebase
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     RecyclerView recyclerView;
+    ImageView profile_pic,search;
 
     //item
     ImageView imgView,btnAdd;
@@ -54,7 +65,7 @@ public class Home extends Fragment {
     TextView menuTitle2,menuPrice2;
 
     String username,userId;
-    String link,link1,link2;
+    String link,link1,link2,profilelink;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -67,6 +78,8 @@ public class Home extends Fragment {
         getuserid();
 
         recyclerView = view.findViewById(R.id.rcview);
+        profile_pic = view.findViewById(R.id.profile_pic);
+        search = view.findViewById(R.id.search);
 
         //item
         imgView = view.findViewById(R.id.imgView);
@@ -88,13 +101,25 @@ public class Home extends Fragment {
         menuPrice2 = view.findViewById(R.id.menuPrice2);
         btnAdd2 = view.findViewById(R.id.btnAdd2);
 
-        categories();
 
+        categories();
         showitem();
         showitem1();
         showitem2();
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AppSearchActivity.class);
+                intent.putExtra("userid", userId);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
+
+
     public void getuserid(){
         db.collection("Users")
                 .whereEqualTo("username",username)
@@ -103,6 +128,8 @@ public class Home extends Fragment {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             userId = document.getId();
+                            profilelink = document.getData().get("imageURL").toString();
+                            Picasso.get().load(profilelink).into(profile_pic);
                         }
                     }
                 });
