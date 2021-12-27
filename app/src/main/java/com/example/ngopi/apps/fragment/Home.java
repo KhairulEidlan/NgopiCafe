@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ngopi.R;
 import com.example.ngopi.apps.rv.RvCategoryAdapter;
@@ -34,7 +35,7 @@ public class Home extends Fragment {
     TextView menuTitle,menuPrice;
 
 
-    String username;
+    String username,userId;
     String link;
 
     @Override
@@ -45,6 +46,7 @@ public class Home extends Fragment {
         //get pass data username
         Bundle bundle = this.getArguments();
         username = bundle.getString("username");
+        getuserid();
 
         recyclerView = view.findViewById(R.id.rcview);
         imgView = view.findViewById(R.id.imgView);
@@ -60,6 +62,19 @@ public class Home extends Fragment {
         showitem1();
         return view;
     }
+    public void getuserid(){
+        db.collection("Users")
+                .whereEqualTo("username",username)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            userId = document.getId();
+                        }
+                    }
+                });
+    }
+
     public void categories(){
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
@@ -133,7 +148,6 @@ public class Home extends Fragment {
                 lblItemMenuInfo.setText("*For regular type, item will added RM 1.00");
                 Picasso.get().load(link).into(imageItemMenu);
 
-
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arraytype);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerMenuItem.setAdapter(dataAdapter);
@@ -144,8 +158,7 @@ public class Home extends Fragment {
                 btnConfirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Toast.makeText(getActivity(), spinnerMenuItem.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
-                        //masuk db
+//                        Toast.makeText(getActivity(), "",Toast.LENGTH_SHORT).show();
 
                     }
                 });
