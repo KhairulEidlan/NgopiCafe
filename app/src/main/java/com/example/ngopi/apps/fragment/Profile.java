@@ -2,7 +2,6 @@ package com.example.ngopi.apps.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,10 +56,9 @@ public class Profile extends Fragment {
     private StorageTask mUploadTask;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_app_profile, container, false);
 
         // storage location
         storage = FirebaseStorage.getInstance().getReference("Users/");
@@ -90,85 +87,63 @@ public class Profile extends Fragment {
 
         profilepage();
 
-        profile_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
+        profile_pic.setOnClickListener(v -> {
         });
-        add_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
+        add_profile.setOnClickListener(v -> openFileChooser());
 
-            }
-        });
+        edit.setOnClickListener(v -> {
+            profilepage();
+            fullname_pro.setEnabled(true);
+            username_pro.setEnabled(true);
+            email_pro.setEnabled(true);
+            phonenum_pro.setEnabled(true);
+            password_pro.setEnabled(true);
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profilepage();
-                fullname_pro.setEnabled(true);
-                username_pro.setEnabled(true);
-                email_pro.setEnabled(true);
-                phonenum_pro.setEnabled(true);
-                password_pro.setEnabled(true);
-
-                layout_addpic.setVisibility(View.VISIBLE);
-                edit.setVisibility(View.INVISIBLE);
-                orderhistory.setVisibility(View.INVISIBLE);
-                save.setVisibility(View.VISIBLE);
-                cancel.setVisibility(View.VISIBLE);
-            }
+            layout_addpic.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.INVISIBLE);
+            orderhistory.setVisibility(View.INVISIBLE);
+            save.setVisibility(View.VISIBLE);
+            cancel.setVisibility(View.VISIBLE);
         });
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateFullname() && validateUsername() && validateEmail() && validatePhoneNum() && validatePassword() == true)
-                {
-                    layout_addpic.setVisibility(View.INVISIBLE);
-                    edit.setVisibility(View.VISIBLE);
-                    save.setVisibility(View.INVISIBLE);
-                    cancel.setVisibility(View.INVISIBLE);
-                    orderhistory.setVisibility(View.VISIBLE);
-                    save();
-                }
-                else{return;
-                }
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        save.setOnClickListener(v -> {
+            if (validateFullname() && validateUsername() && validateEmail() && validatePhoneNum() && validatePassword() == true)
+            {
                 layout_addpic.setVisibility(View.INVISIBLE);
                 edit.setVisibility(View.VISIBLE);
                 save.setVisibility(View.INVISIBLE);
                 cancel.setVisibility(View.INVISIBLE);
                 orderhistory.setVisibility(View.VISIBLE);
-                fullname_pro.setEnabled(false);
-                username_pro.setEnabled(false);
-                email_pro.setEnabled(false);
-                phonenum_pro.setEnabled(false);
-                password_pro.setEnabled(false);
-                profilepage();
-
+                save();
+            }
+            else{return;
             }
         });
+        cancel.setOnClickListener(v -> {
+            layout_addpic.setVisibility(View.INVISIBLE);
+            edit.setVisibility(View.VISIBLE);
+            save.setVisibility(View.INVISIBLE);
+            cancel.setVisibility(View.INVISIBLE);
+            orderhistory.setVisibility(View.VISIBLE);
+            fullname_pro.setEnabled(false);
+            username_pro.setEnabled(false);
+            email_pro.setEnabled(false);
+            phonenum_pro.setEnabled(false);
+            password_pro.setEnabled(false);
+            profilepage();
 
-        orderhistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AppOrderHistoryActivity.class);
-                startActivity(intent);
-
-            }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logout();
-            }
+        orderhistory.setOnClickListener(v -> {
+            Bundle bundle = this.getArguments();
+            String username = bundle.getString("username",user.getUsername());
+
+            Intent intent = new Intent(getActivity(), AppOrderHistoryActivity.class);
+            intent.putExtra("username",username);
+            startActivity(intent);
+
         });
+
+        logout.setOnClickListener(v -> Logout());
 
         return view;
     }
@@ -183,8 +158,7 @@ public class Profile extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
             Picasso.get().load(mImageUri).into(profile_pic);

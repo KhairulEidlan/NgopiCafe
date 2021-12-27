@@ -47,7 +47,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
     @NonNull
     @Override
     public RvCartHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_cart,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_app_cart,parent,false);
 
         db = FirebaseFirestore.getInstance();
         db.collection("Users")
@@ -84,7 +84,7 @@ public class RvCartAdapter extends RecyclerView.Adapter<RvCartAdapter.RvCartHold
     }
 
     private void openDialog(RvCart currentItem) {
-        view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_cart,null);
+        view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_app_cart,null);
 
         cartDialog.setContentView(view);
         cartDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));

@@ -31,7 +31,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -60,15 +63,15 @@ public class AppPaymentActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra("username");
         totalCheckout = getIntent().getDoubleExtra("total",0);
-        orderNo = getIntent().getStringExtra("orderNo");
 
         db = FirebaseFirestore.getInstance();
+
+        generateOrderNo();
 
         lblTotal = findViewById(R.id.lblTotal);
         lblTotal.append(String.format(Locale.getDefault(),"RM %.2f", totalCheckout));
 
         lblOrderNo = findViewById(R.id.lblOrderNo);
-        lblOrderNo.append(orderNo);
 
         txtTime = findViewById(R.id.txtTimePicker);
         txtTime.setOnClickListener(v -> {
@@ -111,6 +114,41 @@ public class AppPaymentActivity extends AppCompatActivity {
         });
     }
 
+    private void generateOrderNo() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("Asia/Kuala_Lumpur"));
+
+        ArrayList<String> status= new ArrayList<>();
+        status.add("In Cart");
+        status.add("Payed");
+
+
+        db.collection("Order")
+                .whereIn("status",status)
+                .whereEqualTo("orderDate",dtf.format(now))
+                .get()
+                .addOnCompleteListener(taskOrder -> {
+                    if (taskOrder.isSuccessful()){
+                        if (taskOrder.getResult().size() == 1){
+                            orderNo = "001";
+                        } else {
+                            int counter = 0;
+                            for (QueryDocumentSnapshot ignored : taskOrder.getResult()){
+                                counter++;
+                            }
+
+                            if (counter < 10){
+                                orderNo = "00"+ counter;
+                            } else if (counter < 100){
+                                orderNo = "0"+ counter;
+                            } else if(counter < 1000){
+                                orderNo = String.valueOf(counter);
+                            }
+                        }
+                        lblOrderNo.append(orderNo);
+                    }
+                });
+    }
 
 
     public void complete(View view) {

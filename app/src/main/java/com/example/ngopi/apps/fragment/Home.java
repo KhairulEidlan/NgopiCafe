@@ -1,7 +1,6 @@
 package com.example.ngopi.apps.fragment;
 
 import android.app.Dialog;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -12,26 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ngopi.R;
-import com.example.ngopi.admin.AdminCategory;
-import com.example.ngopi.apps.model.RvMenu;
-import com.example.ngopi.apps.rv.RvCatAdapter;
-import com.example.ngopi.apps.model.RvCat;
-import com.example.ngopi.apps.rv.RvMenuAdapter;
+import com.example.ngopi.apps.rv.RvCategoryAdapter;
+import com.example.ngopi.apps.model.RvCategory;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Home extends Fragment {
 
@@ -47,7 +40,7 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_app_home, container, false);
 
         //get pass data username
         Bundle bundle = this.getArguments();
@@ -71,14 +64,14 @@ public class Home extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
         // Item
-        ArrayList<RvCat> item = new ArrayList<>();
-        item.add(new RvCat(R.mipmap.coffee_foreground,"Coffee"));
-        item.add(new RvCat(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
-        item.add(new RvCat(R.mipmap.boba_foreground,"Smoothies"));
-        item.add(new RvCat(R.mipmap.ice_cream_foreground,"Dessert"));
-        item.add(new RvCat(R.mipmap.can_foreground,"Beverage"));
+        ArrayList<RvCategory> item = new ArrayList<>();
+        item.add(new RvCategory(R.mipmap.coffee_foreground,"Coffee"));
+        item.add(new RvCategory(R.mipmap.ice_coffee_foreground,"Ice Coffee"));
+        item.add(new RvCategory(R.mipmap.boba_foreground,"Smoothies"));
+        item.add(new RvCategory(R.mipmap.ice_cream_foreground,"Dessert"));
+        item.add(new RvCategory(R.mipmap.can_foreground,"Beverage"));
 
-        recyclerView.setAdapter(new RvCatAdapter(getContext(),username, item));
+        recyclerView.setAdapter(new RvCategoryAdapter(getContext(),username, item));
 
     }
 
@@ -112,7 +105,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
 
                 Dialog dialog = new Dialog(getActivity());
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_menu,null);
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_app_menu,null);
                 dialog.setContentView(view);
                 dialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);

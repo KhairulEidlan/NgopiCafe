@@ -58,7 +58,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
     @NonNull
     @Override
     public RvMenuHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_menu,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_app_menu,parent,false);
 
         db = FirebaseFirestore.getInstance();
         db.collection("Users")
@@ -94,8 +94,12 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
             holder.btnAdd.setOnClickListener(v -> {
                 if(currentItem.getItemName().equals("Mineral Water")){
                     type = "Bottle";
-                    amount = 0.00;
+                } else if(currentItem.getItemName().contains("Cupcake")){
+                    type = "Cupcake";
+                } else if(currentItem.getItemName().contains("Ice Cream")){
+                    type = "Ice Cream";
                 }
+                amount = 0.00;
                 toDatabase(currentItem,type,amount);
             });
         }
@@ -108,7 +112,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
 
     private void openDialog(RvMenu currentItem) {
 
-        view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_menu,null);
+        view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_app_menu,null);
 
         menuDialog.setContentView(view);
         menuDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));
@@ -206,7 +210,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
 
                                 OrderDetail orderDetail= new OrderDetail(
                                         currentItem.getItemId(),
-                                        String.valueOf(Double.parseDouble(currentItem.getItemPrice()) + amountMenu),
+                                        String.format(Locale.getDefault(),"%.2f", Double.parseDouble(currentItem.getItemPrice()) + amountMenu),
                                         typeMenu,
                                         1
                                 );
