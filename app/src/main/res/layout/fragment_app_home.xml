@@ -131,7 +131,6 @@
 
                 <ImageView
                     android:id="@+id/imgView"
-                    android:background="@drawable/gradient_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"/>
@@ -151,7 +150,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
                 android:layout_toEndOf="@+id/cardView1"
-                android:text="bqwirkb"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="normal" />
@@ -166,8 +164,7 @@
                 android:layout_toEndOf="@+id/cardView1"
                 android:textColor="#4FB6B2"
                 android:textSize="18sp"
-                android:textStyle="normal"
-                android:text="hvbcewq"/>
+                android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/btnAdd1"
@@ -193,7 +190,6 @@
 
                 <ImageView
                     android:id="@+id/imgView1"
-                    android:background="@drawable/gradient_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"/>
@@ -204,6 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/menuTitle2"
                 android:layout_width="130dp"
@@ -214,8 +211,7 @@
                 android:layout_toEndOf="@+id/cardView2"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="normal"
-                android:text="bqwirkb"/>
+                android:textStyle="normal"/>
 
             <TextView
                 android:id="@+id/menuPrice2"
@@ -227,8 +223,7 @@
                 android:layout_toEndOf="@+id/cardView2"
                 android:textColor="#4FB6B2"
                 android:textSize="18sp"
-                android:textStyle="normal"
-                android:text="hvbcewq"/>
+                android:textStyle="normal" />
 
             <ImageView
                 android:id="@+id/btnAdd2"
@@ -254,7 +249,6 @@
 
                 <ImageView
                     android:id="@+id/imgView2"
-                    android:background="@drawable/gradient_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"/>
