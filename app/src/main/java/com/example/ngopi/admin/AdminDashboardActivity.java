@@ -51,7 +51,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
     }
 
     public void Request(View view){
-
+        Intent intent = new Intent(AdminDashboardActivity.this, AdminRequestOrder.class);
+        startActivity(intent);
     }
 
     public void coffee_category(View view){
