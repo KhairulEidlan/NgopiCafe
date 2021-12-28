@@ -27,6 +27,8 @@ public class AdminRequestOrder extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    String userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,11 @@ public class AdminRequestOrder extends AppCompatActivity {
                         ArrayList<RvOrder> order = new ArrayList<>();
 
                         for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()) {
+
+                            userid = documentOrder.getData().get("userId").toString();
                                 order.add(new RvOrder(
                                         documentOrder.getId(),
+                                        documentOrder.getData().get("userId").toString(),
                                         documentOrder.getData().get("orderNo").toString(),
                                         documentOrder.getData().get("orderDate").toString(),
                                         documentOrder.getData().get("orderPickUp").toString(),

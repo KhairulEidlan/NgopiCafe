@@ -63,6 +63,7 @@ public class OngoingOrder extends Fragment {
                                                 if (!documentOrder.getData().get("status").toString().equals("In Cart") && !documentOrder.getData().get("status").toString().equals("Complete")){
                                                     order.add(new RvOrder(
                                                             documentOrder.getId(),
+                                                            documentOrder.getData().get("userId").toString(),
                                                             documentOrder.getData().get("orderNo").toString(),
                                                             documentOrder.getData().get("orderDate").toString(),
                                                             documentOrder.getData().get("orderPickUp").toString(),
