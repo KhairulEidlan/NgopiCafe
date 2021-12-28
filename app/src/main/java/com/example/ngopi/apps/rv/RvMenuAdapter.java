@@ -114,6 +114,7 @@ public class RvMenuAdapter extends RecyclerView.Adapter<RvMenuAdapter.RvMenuHold
 
         view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_app_menu,null);
 
+
         menuDialog.setContentView(view);
         menuDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));
         menuDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);

@@ -6,7 +6,6 @@ public class RvMenu {
     private String itemImage;
     private String itemName;
     private String itemPrice;
-    private boolean itemactive;
 
     public RvMenu(String itemId, String itemCategory, String itemImage, String itemName, String itemPrice) {
         this.itemId = itemId;
