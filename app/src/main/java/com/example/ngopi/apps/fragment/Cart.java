@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.ngopi.R;
@@ -55,12 +56,16 @@ public class Cart extends Fragment {
         btnCheckout = view.findViewById(R.id.btnCheckout);
         btnCheckout.setVisibility(View.INVISIBLE);
 
+
+
+
         displayCart(view);
 
         return view;
     }
 
     public void displayCart(View view) {
+
 
         db.collection("Users")
                 .whereEqualTo("username",username)
@@ -111,6 +116,7 @@ public class Cart extends Fragment {
 
                                                                                 btnCheckout.setVisibility(View.VISIBLE);
                                                                                 btnCheckout.setOnClickListener(this::toPayment);
+
                                                                             }
                                                                         });
                                                             }
