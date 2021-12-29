@@ -165,17 +165,32 @@
         app:strokeWidth="1dp">
 
         <RadioGroup
+            android:id="@+id/paymentMethod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:layout_width="wrap_content"
+                android:id="@+id/rbCash"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:padding="10dp"
-                android:text="Pay At counter"
+                android:text="Cash"
                 android:textSize="18sp"
-                android:checked="true"
                 android:buttonTint="#704030"/>
+
+            <RadioButton
+                android:id="@+id/rbCredit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:text="Credit Card"
+                android:textSize="18sp"
+                android:buttonTint="#704030"/>
+
 
         </RadioGroup>
 

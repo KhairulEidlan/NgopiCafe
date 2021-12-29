@@ -1,32 +1,26 @@
 package com.example.ngopi.apps.fragment;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ngopi.AppSearchActivity;
+import com.example.ngopi.apps.AppSearchActivity;
 import com.example.ngopi.R;
-import com.example.ngopi.apps.AppMainActivity;
 import com.example.ngopi.apps.model.Order;
 import com.example.ngopi.apps.model.OrderDetail;
 import com.example.ngopi.apps.rv.RvCategoryAdapter;

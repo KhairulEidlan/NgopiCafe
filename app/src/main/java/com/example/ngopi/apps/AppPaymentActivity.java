@@ -2,16 +2,26 @@ package com.example.ngopi.apps;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -49,9 +59,14 @@ public class AppPaymentActivity extends AppCompatActivity {
 
     TextView lblTotal, lblOrderNo;
     EditText txtTime;
+    RadioGroup rgPaymentMethod;
+    RadioButton rbSelectedMethod;
+
     TimePickerDialog timePickerDialog;
     Calendar calendar;
     int currentHour,currentMinute,tHour,tMinute;
+
+    private Dialog paymentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +127,10 @@ public class AppPaymentActivity extends AppCompatActivity {
             timePickerDialog.updateTime(tHour,tMinute);
             timePickerDialog.show();
         });
+
+        rgPaymentMethod = findViewById(R.id.paymentMethod);
+
+        paymentDialog = new Dialog(this);
     }
 
     private void generateOrderNo() {
@@ -132,7 +151,7 @@ public class AppPaymentActivity extends AppCompatActivity {
                         if (taskOrder.getResult().size() == 1){
                             orderNo = "001";
                         } else {
-                            int counter = 0;
+                            int counter = 1;
                             for (QueryDocumentSnapshot ignored : taskOrder.getResult()){
                                 counter++;
                             }
@@ -150,57 +169,94 @@ public class AppPaymentActivity extends AppCompatActivity {
                 });
     }
 
-
     public void complete(View view) {
-        if (!txtTime.getText().toString().isEmpty()){
-            try {
-                db.collection("Users")
-                        .whereEqualTo("username",username)
-                        .get()
-                        .addOnCompleteListener(taskUser -> {
-                            if (taskUser.isSuccessful()) {
-                                for (QueryDocumentSnapshot documentUser : taskUser.getResult()) {
-                                    db.collection("Order")
-                                            .whereEqualTo("userId",documentUser.getId())
-                                            .whereEqualTo("status","In Cart")
-                                            .get()
-                                            .addOnCompleteListener(taskOrder -> {
-                                                if (taskOrder.isSuccessful()){
-                                                    for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()){
-                                                        System.out.println("Order ID: "+documentOrder.getId());
-                                                        DocumentReference dbOrder = db.collection("Order").document(documentOrder.getId());
+        int selectedPaymentMethodId = rgPaymentMethod.getCheckedRadioButtonId();
 
-                                                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                                        LocalDateTime now = LocalDateTime.now();
+        if (!txtTime.getText().toString().isEmpty() && selectedPaymentMethodId != -1){
 
-                                                        Map<String, Object> updateOrder = new HashMap<>();
-                                                        updateOrder.put("orderNo", orderNo);
-                                                        updateOrder.put("amount", String.format(Locale.getDefault(),"%.2f", totalCheckout));
-                                                        updateOrder.put("orderPickUp", txtTime.getText().toString());
-                                                        updateOrder.put("orderDate", dtf.format(now));
-                                                        updateOrder.put("status","Payed");
+            rbSelectedMethod = findViewById(selectedPaymentMethodId);
 
-                                                        dbOrder.update(updateOrder).addOnSuccessListener(unused -> {
-                                                            Toast.makeText(this, "The payment is success", Toast.LENGTH_SHORT).show();
-                                                            SharedPreferences prefs = getSharedPreferences("UserPreferences", MODE_PRIVATE);
-                                                            String username = prefs.getString("username","");
-                                                            Intent intent = new Intent(AppPaymentActivity.this, AppMainActivity.class);
-                                                            intent.putExtra("username", username);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        });
-                                                    }
-                                                }
-                                            });
-                                }
-                            }
-                        });
-            } catch (Exception ex){
-                Toast.makeText(this, "Error in processing payment", Toast.LENGTH_SHORT).show();
+            if(rbSelectedMethod.getText().toString().equals("Credit Card")){
+                view = LayoutInflater.from(view.getContext()).inflate(R.layout.dialog_app_payment,null);
+
+                paymentDialog.setContentView(view);
+                paymentDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(view.getContext(), R.drawable.dialog_background));
+                paymentDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                paymentDialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+
+
+                EditText creditCardNo;
+                Button btnOk;
+
+                creditCardNo = view.findViewById(R.id.creditCardNo);
+                btnOk = view.findViewById(R.id.btnOk);
+
+                btnOk.setOnClickListener(v -> {
+                    if(!creditCardNo.getText().toString().isEmpty()){
+                        toDatabase();
+                    } else {
+                        Toast.makeText(v.getContext(), "Please insert your credit card number to proceed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                paymentDialog.setCancelable(true);
+                paymentDialog.show();
+            } else {
+                toDatabase();
             }
         } else {
-            Toast.makeText(this, "Please select time to pickup your order", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please select time to pickup your order and your payment method", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void toDatabase() {
+
+        try {
+            db.collection("Users")
+                    .whereEqualTo("username",username)
+                    .get()
+                    .addOnCompleteListener(taskUser -> {
+                        if (taskUser.isSuccessful()) {
+                            for (QueryDocumentSnapshot documentUser : taskUser.getResult()) {
+                                db.collection("Order")
+                                        .whereEqualTo("userId",documentUser.getId())
+                                        .whereEqualTo("status","In Cart")
+                                        .get()
+                                        .addOnCompleteListener(taskOrder -> {
+                                            if (taskOrder.isSuccessful()){
+                                                for (QueryDocumentSnapshot documentOrder : taskOrder.getResult()){
+                                                    System.out.println("Order ID: "+documentOrder.getId());
+                                                    DocumentReference dbOrder = db.collection("Order").document(documentOrder.getId());
+
+                                                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                                                    LocalDateTime now = LocalDateTime.now();
+
+                                                    Map<String, Object> updateOrder = new HashMap<>();
+                                                    updateOrder.put("orderNo", orderNo);
+                                                    updateOrder.put("amount", String.format(Locale.getDefault(),"%.2f", totalCheckout));
+                                                    updateOrder.put("orderPickUp", txtTime.getText().toString());
+                                                    updateOrder.put("orderDate", dtf.format(now));
+                                                    updateOrder.put("status","Payed");
+
+                                                    dbOrder.update(updateOrder).addOnSuccessListener(unused -> {
+                                                        Toast.makeText(this, "The payment is success", Toast.LENGTH_SHORT).show();
+                                                        SharedPreferences prefs = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+                                                        String username = prefs.getString("username","");
+                                                        Intent intent = new Intent(AppPaymentActivity.this, AppMainActivity.class);
+                                                        intent.putExtra("username", username);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    });
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    });
+
+        } catch (Exception ex){
+            Toast.makeText(this, "Error in processing payment", Toast.LENGTH_SHORT).show();
+        }
     }
 }

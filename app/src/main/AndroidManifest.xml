@@ -16,7 +16,7 @@
             android:name=".admin.AdminRequestOrder"
             android:exported="true" />
         <activity
-            android:name=".AppSearchActivity"
+            android:name=".apps.AppSearchActivity"
             android:exported="true" />
         <activity
             android:name=".admin.EditAdminMenu"

@@ -6,18 +6,35 @@
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/drawable/table_divider.xml" value="0.403125" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_category.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_order_history.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_payment.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_app_search.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_cart.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_category.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_edit_admin_menu.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_login.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_order_history.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/activity_profile.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_admin_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_app_cart.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_app_menu.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_app_order.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_app_payment.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_cart.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/dialog_menu.xml" value="0.3537037037037037" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_app_cart.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_app_history_order.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_app_home.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_app_ongoing_order.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_cart.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_history_order.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_home.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_ongoing_order.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/fragment_profile.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_admin_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_app_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_app_order_history.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_cart.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_cat.xml" value="0.38697916666666665" />
         <entry key="..\:/Project/Android/NgopiCafe/app/src/main/res/layout/rv_menu.xml" value="0.38697916666666665" />
@@ -45,13 +62,9 @@
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/top_menu.xml" value="0.3828125" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/drawable/track.xml" value="0.3141025641025641" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_admin_category.xml" value="0.33" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.33" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_admin_request_order.xml" value="0.30085470085470084" />
+        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.5" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_app_category.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_app_main.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_app_order_history.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_app_payment.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_app_search.xml" value="0.33" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_cart.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_coffee_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_dashboard.xml" value="0.25" />
@@ -63,23 +76,11 @@
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/activity_signup.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/dialog_admin_menu.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/dialog_admin_order.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/dialog_app_menu.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/dialog_app_order.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/dialog_menu.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_app_cart.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_app_history_order.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_app_home.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_app_ongoing_order.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_app_profile.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_cart.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_admin_menu.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_app_cart.xml" value="0.67" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_app_category.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_app_menu.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_app_order_history.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_cart.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_cat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/adamd/AndroidStudioProjects/NgopiCafe/app/src/main/res/layout/rv_menu.xml" value="0.30085470085470084" />
@@ -90,7 +91,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
