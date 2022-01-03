@@ -265,4 +265,8 @@ public class AdminCategory extends AppCompatActivity {
                     }
                 });
     }
+    public void onBackPressed() {
+        Intent intent = new Intent(AdminCategory.this, AdminDashboardActivity.class);
+        startActivity(intent);
+    }
 }

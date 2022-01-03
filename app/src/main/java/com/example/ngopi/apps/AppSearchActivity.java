@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.ngopi.R;
+import com.example.ngopi.admin.AdminCategory;
+import com.example.ngopi.admin.AdminDashboardActivity;
 import com.example.ngopi.apps.rv.RvSearchAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -70,6 +74,13 @@ public class AppSearchActivity extends AppCompatActivity {
                 rcSearch.setLayoutManager(new LinearLayoutManager(AppSearchActivity.this, LinearLayoutManager.VERTICAL,false));
                 rcSearch.setAdapter(searchAdapter);
 
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppSearchActivity.this, AppMainActivity.class);
+                startActivity(intent);
             }
         });
 

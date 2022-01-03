@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.ngopi.R;
@@ -69,8 +70,9 @@ public class AdminRequestOrder extends AppCompatActivity {
                     }
                 });
 
-
-
-
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(AdminRequestOrder.this, AdminDashboardActivity.class);
+        startActivity(intent);
     }
 }

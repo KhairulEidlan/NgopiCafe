@@ -2,6 +2,7 @@ package com.example.ngopi.admin.rv;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,6 +21,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ngopi.R;
+import com.example.ngopi.admin.AdminCategory;
+import com.example.ngopi.admin.AdminDashboardActivity;
+import com.example.ngopi.admin.AdminRequestOrder;
+import com.example.ngopi.apps.AppCategoryActivity;
 import com.example.ngopi.apps.model.RvOrder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -157,6 +162,8 @@ public class RvAdminOrder extends RecyclerView.Adapter<RvAdminOrder.RvAdminOrder
                         .update(
                                 "status","Complete"
                         );
+                Intent intent = new Intent(v.getContext() , AdminRequestOrder.class);
+                v.getContext().startActivity(intent);
 
             }
         });
