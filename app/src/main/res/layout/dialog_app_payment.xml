@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,26 +19,64 @@
         android:id="@+id/creditCardNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/lblCreditTitle"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:drawableEnd="@drawable/ic_credit_card"
+        android:hint="card number"
         android:inputType="number"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
+
+    <LinearLayout
+        android:id="@+id/layoutcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/creditCardNo"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <EditText
+            android:id="@+id/cardDate"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="-0.25dp"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_card_date"
+            android:hint="MM/YY"
+            android:inputType="date"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:id="@+id/cardCVC"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="-0.25dp"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_card_cvc"
+            android:hint="CVC"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btnOk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/creditCardNo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/layoutcard"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:text="OK"
+        android:textAlignment="center"
         android:textAllCaps="false"
-        android:textSize="18sp"
         android:textColor="@android:color/holo_blue_dark"
-        android:textAlignment="center"/>
+        android:textSize="18sp" />
 </RelativeLayout>

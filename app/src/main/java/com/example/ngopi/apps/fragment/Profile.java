@@ -300,7 +300,7 @@ public class Profile extends Fragment {
                     });
 
         } else {
-            Toast.makeText(getActivity(),"Update UNSuccessful!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Update UnSuccessful!",Toast.LENGTH_SHORT).show();
         }
     }
 

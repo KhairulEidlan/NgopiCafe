@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -185,16 +187,39 @@ public class AppPaymentActivity extends AppCompatActivity {
                 paymentDialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 
 
-                EditText creditCardNo;
+                EditText creditCardNo,cardDate,cardCVC;
                 Button btnOk;
 
                 creditCardNo = view.findViewById(R.id.creditCardNo);
+                cardDate = view.findViewById(R.id.cardDate);
+                cardCVC = view.findViewById(R.id.cardCVC);
                 btnOk = view.findViewById(R.id.btnOk);
 
                 btnOk.setOnClickListener(v -> {
-                    if(!creditCardNo.getText().toString().isEmpty()){
-                        toDatabase();
-                    } else {
+                    if(!creditCardNo.getText().toString().isEmpty() && !cardDate.getText().toString().isEmpty() && !cardCVC.getText().toString().isEmpty()){
+                        if (creditCardNo.length() == 16 && cardDate.length() == 5 && cardCVC.length() == 3){
+                            if(creditCardNo.getText().toString().matches("4[0-9]+") || creditCardNo.getText().toString().matches("5[1-4]+[0-9]+")){
+                                //visa start with 4
+                                //mastercard start with 51,52,53,54
+                                if (cardDate.getText().toString().matches("0[1-9]+/[2-9]+[2-9]")||cardDate.getText().toString().matches("1[0-2]+/[2-9]+[2-9]")){
+                                    toDatabase();
+                                }
+                                else{
+                                    Toast.makeText(v.getContext(), "Credit Card is Declined", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+//                            4111111111111111
+                            else {
+                                Toast.makeText(v.getContext(), "Visa Or Mastercard is Declined", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(v.getContext(), "Credit Card Sufficient Number!!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    else{
                         Toast.makeText(v.getContext(), "Please insert your credit card number to proceed", Toast.LENGTH_SHORT).show();
                     }
                 });
