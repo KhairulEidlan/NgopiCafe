@@ -10,7 +10,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_below="@+id/activebtn"
-        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="100dp"
         android:elevation="15dp"
@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textCapSentences"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:hint="Name"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:hint="Price"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
