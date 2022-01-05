@@ -298,9 +298,20 @@ public class Profile extends Fragment {
                             });
                         }
                     });
+            Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(getActivity(),"Update UnSuccessful!",Toast.LENGTH_SHORT).show();
+            DocumentReference documentReference = db.collection("Users").document(uid);
+            documentReference
+                    .update(
+                            "fullname",fullname_pro.getText().toString(),
+                            "usename",username_pro.getText().toString(),
+                            "email",email_pro.getText().toString(),
+                            "phonenum",phonenum_pro.getText().toString(),
+                            "password",password_pro.getText().toString()
+
+                    );
+            Toast.makeText(getActivity(),"Update Successful!",Toast.LENGTH_SHORT).show();
         }
     }
 
