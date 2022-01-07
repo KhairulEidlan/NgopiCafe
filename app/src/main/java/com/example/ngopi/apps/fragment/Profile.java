@@ -253,6 +253,10 @@ public class Profile extends Fragment {
             password_pro.setError("field cannot be empty");
             return false;
         }
+        else if (!(val.length() ==8)){
+            password_pro.setError("password length is 8 character");
+            return false;
+        }
         else {
             password_pro.setError(null);
             return true;

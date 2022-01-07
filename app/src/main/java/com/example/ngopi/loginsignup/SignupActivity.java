@@ -138,6 +138,10 @@ public class SignupActivity extends AppCompatActivity {
             password_reg.setError("field cannot be empty");
             return false;
         }
+        else if (!(val.length() ==8)){
+            password_reg.setError("password length is 8 character");
+            return false;
+        }
         else {
             password_reg.setError(null);
             password_reg.setErrorEnabled(false);
