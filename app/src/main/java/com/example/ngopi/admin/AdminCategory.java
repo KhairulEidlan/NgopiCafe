@@ -202,7 +202,7 @@ public class AdminCategory extends AppCompatActivity {
                                                                     //proceed to add data to database
                                                                     Map<String, Object> item = new HashMap<>();
                                                                     item.put("is_active",activebtn.isChecked());
-                                                                    item.put("is_deleted","false");
+                                                                    item.put("is_deleted", false);
                                                                     item.put("menu_name",item_title.getText().toString());
                                                                     item.put("menu_pic",task.getResult().toString());
                                                                     item.put("menu_price",item_price.getText().toString());
